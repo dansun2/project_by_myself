@@ -5,24 +5,24 @@ import java.time.LocalDateTime;
 public class Instructors {
     private Integer instructorId;
     private String instructorName;
-    private String email;
-    private String password;
-    private String phone;
-    private byte status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
+    private String instructorEmail;
+    private String instructorPassword;
+    private String instructorPhone;
+    private boolean instructorStatus;
+    private LocalDateTime instructorCreatedAt;
+    private LocalDateTime instructorUpdatedAt;
+    private LocalDateTime instructorDeletedAt;
 
-    public Instructors(Integer instructorId, String instructorName, String email, String password, String phone, byte status, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt) {
+    public Instructors(Integer instructorId, String instructorName, String instructorEmail, String instructorPassword, String instructorPhone, boolean instructorStatus, LocalDateTime instructorCreatedAt, LocalDateTime instructorUpdatedAt, LocalDateTime instructorDeletedAt) {
         this.instructorId = instructorId;
         this.instructorName = instructorName;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.deletedAt = deletedAt;
+        this.instructorEmail = instructorEmail;
+        this.instructorPassword = instructorPassword;
+        this.instructorPhone = instructorPhone;
+        this.instructorStatus = instructorStatus;
+        this.instructorCreatedAt = instructorCreatedAt;
+        this.instructorUpdatedAt = instructorUpdatedAt;
+        this.instructorDeletedAt = instructorDeletedAt;
     }
 
     public Integer getInstructorId() {
@@ -41,60 +41,60 @@ public class Instructors {
         this.instructorName = instructorName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getInstructorEmail() {
+        return instructorEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setInstructorEmail(String instructorEmail) {
+        this.instructorEmail = instructorEmail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getInstructorPassword() {
+        return instructorPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setInstructorPassword(String instructorPassword) {
+        this.instructorPassword = instructorPassword;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getInstructorPhone() {
+        return instructorPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setInstructorPhone(String instructorPhone) {
+        this.instructorPhone = instructorPhone;
     }
 
-    public byte getStatus() {
-        return status;
+    public boolean isInstructorStatus() {
+        return instructorStatus;
     }
 
-    public void setStatus(byte status) {
-        this.status = status;
+    public void setInstructorStatus(boolean instructorStatus) {
+        this.instructorStatus = instructorStatus;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getInstructorCreatedAt() {
+        return instructorCreatedAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setInstructorCreatedAt(LocalDateTime instructorCreatedAt) {
+        this.instructorCreatedAt = instructorCreatedAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public LocalDateTime getInstructorUpdatedAt() {
+        return instructorUpdatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setInstructorUpdatedAt(LocalDateTime instructorUpdatedAt) {
+        this.instructorUpdatedAt = instructorUpdatedAt;
     }
 
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
+    public LocalDateTime getInstructorDeletedAt() {
+        return instructorDeletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
+    public void setInstructorDeletedAt(LocalDateTime instructorDeletedAt) {
+        this.instructorDeletedAt = instructorDeletedAt;
     }
 
     @Override
@@ -102,13 +102,13 @@ public class Instructors {
         return "Instructors{" +
                 "instructorId=" + instructorId +
                 ", instructorName='" + instructorName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", deletedAt=" + deletedAt +
+                ", instructorEmail='" + instructorEmail + '\'' +
+                ", instructorPassword='" + instructorPassword + '\'' +
+                ", instructorPhone='" + instructorPhone + '\'' +
+                ", instructorStatus=" + instructorStatus +
+                ", instructorCreatedAt=" + instructorCreatedAt +
+                ", instructorUpdatedAt=" + instructorUpdatedAt +
+                ", instructorDeletedAt=" + instructorDeletedAt +
                 '}';
     }
 }

@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.ohgiraffers'
+group = 'com.metabirth'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,6 +10,10 @@ repositories {
 }
 
 dependencies {
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
+    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.3.0'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.16'
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

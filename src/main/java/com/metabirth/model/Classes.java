@@ -7,23 +7,23 @@ public class Classes {
     private Integer classId;
     private String className;
     private String classTime;
-    private Integer capacity;
-    private BigDecimal price;
-    private byte status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
+    private Integer classCapacity;
+    private double classPrice;
+    private boolean classStatus;
+    private LocalDateTime classCreatedAt;
+    private LocalDateTime classUpdatedAt;
+    private LocalDateTime classDeletedAt;
 
-    public Classes(Integer classId, String className, String classTime, Integer capacity, BigDecimal price, byte status, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt) {
+    public Classes(Integer classId, String className, String classTime, Integer classCapacity, double classPrice, boolean classStatus, LocalDateTime classCreatedAt, LocalDateTime classUpdatedAt, LocalDateTime classDeletedAt) {
         this.classId = classId;
         this.className = className;
         this.classTime = classTime;
-        this.capacity = capacity;
-        this.price = price;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.deletedAt = deletedAt;
+        this.classCapacity = classCapacity;
+        this.classPrice = classPrice;
+        this.classStatus = classStatus;
+        this.classCreatedAt = classCreatedAt;
+        this.classUpdatedAt = classUpdatedAt;
+        this.classDeletedAt = classDeletedAt;
     }
 
     public Integer getClassId() {
@@ -50,66 +50,52 @@ public class Classes {
         this.classTime = classTime;
     }
 
-    public Integer getCapacity() {
-        return capacity;
+    public Integer getClassCapacity() {
+        return classCapacity;
     }
 
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
+    public void setClassCapacity(Integer classCapacity) {
+        this.classCapacity = classCapacity;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public double getClassPrice() {
+        return classPrice;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setClassPrice(double classPrice) {
+        this.classPrice = classPrice;
     }
 
-    public byte getStatus() {
-        return status;
+    public boolean isClassStatus() {
+        return classStatus;
     }
 
-    public void setStatus(byte status) {
-        this.status = status;
+    public void setClassStatus(boolean classStatus) {
+        this.classStatus = classStatus;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getClassCreatedAt() {
+        return classCreatedAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setClassCreatedAt(LocalDateTime classCreatedAt) {
+        this.classCreatedAt = classCreatedAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public LocalDateTime getClassUpdatedAt() {
+        return classUpdatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setClassUpdatedAt(LocalDateTime classUpdatedAt) {
+        this.classUpdatedAt = classUpdatedAt;
     }
 
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
+    public LocalDateTime getClassDeletedAt() {
+        return classDeletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
+    public void setClassDeletedAt(LocalDateTime classDeletedAt) {
+        this.classDeletedAt = classDeletedAt;
     }
 
-    @Override
-    public String toString() {
-        return "Classes{" +
-                "classId=" + classId +
-                ", className='" + className + '\'' +
-                ", classTime='" + classTime + '\'' +
-                ", capacity=" + capacity +
-                ", price=" + price +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", deletedAt=" + deletedAt +
-                '}';
-    }
 }
