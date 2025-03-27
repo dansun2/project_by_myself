@@ -6,12 +6,12 @@
           FROM instructors
     </query>
 
-<!--    <query id="getUserById">-->
-<!--        SELECT-->
-<!--        *-->
-<!--        FROM users-->
-<!--        WHERE user_id = ?-->
-<!--    </query>-->
+    <query id="findByInstructorId">
+        SELECT
+        *
+        FROM instructors
+        WHERE instructor_id = ?
+    </query>
 
     <query id="registerInstructor">
         INSERT INTO instructors (instructor_name, email, password, phone, status, created_at)

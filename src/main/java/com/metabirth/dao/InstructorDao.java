@@ -43,6 +43,33 @@ public class InstructorDao {
         return instructors;
     }
 
+    public Instructor findByInstructorId(int instructorId) {
+        Instructor instructor = null; // 조회한 강사의 정보를 담을 객체 생성
+        String query = QueryUtil.getQuery("findByInstructorId");
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, instructorId);
+            ResultSet rs = ps.executeQuery();// 쿼리를 날려서 결과값을 rs에 담음
+
+            if(rs.next()) {
+                instructor = new Instructor(
+                        rs.getInt("instructor_id"),
+                        rs.getString("instructor_name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getBoolean("status"),
+                        rs.getTimestamp("created_at").toLocalDateTime(),
+                        rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
+                        rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
+                );
+                System.out.println(instructor); // 조회한 강사 출력
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return instructor;
+    }
+
     public boolean registerInstructor(Instructor instructor) {
         String query = QueryUtil.getQuery("registerInstructor");
 

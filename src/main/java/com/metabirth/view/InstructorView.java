@@ -36,6 +36,7 @@ public class InstructorView {
                 case 1 -> registerInstructor();
 //                case 2 -> updateInstructor();
                 case 3 -> getAllInstructors();
+                case 4 -> findByInstructorId();
 //                case 4 -> deleteInstructor();
                 case 0 -> {
                     return;
@@ -58,6 +59,14 @@ public class InstructorView {
         } catch (SQLException e) {
             System.out.println("강사 목록을 조회하는 중 오류가 발생했습니다.");
         }
+    }
+
+    private void findByInstructorId() {
+        System.out.print("검색할 강사 ID 번호를 입력하세요 : ");
+        int instructorId = scanner.nextInt();
+        scanner.nextLine();
+
+        Instructor instructor = instructorService.findByInstructorId(instructorId);
     }
 
     private void registerInstructor() {
