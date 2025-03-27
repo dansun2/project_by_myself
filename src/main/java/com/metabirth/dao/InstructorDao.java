@@ -7,6 +7,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 // db와 상호작용하는 클래스. connection을 주입받아서 재사용
 // 강사정보를 가져오고 저장하는 기능
@@ -68,6 +69,59 @@ public class InstructorDao {
             e.printStackTrace();
         }
         return instructor;
+    }
+
+    public boolean deleteByInstructorId(int instructorId) {
+        Instructor instructor = null;
+        String findQuery = QueryUtil.getQuery("findByInstructorId"); // 삭제하기 전에 정보 조회를 해서 띄워줘야됨
+
+        try (PreparedStatement ps = connection.prepareStatement(findQuery)) {
+            ps.setInt(1, instructorId);
+            ResultSet rs = ps.executeQuery();// 쿼리를 날려서 결과값을 rs에 담음
+
+            if(rs.next()) {
+                instructor = new Instructor(
+                        rs.getInt("instructor_id"),
+                        rs.getString("instructor_name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getBoolean("status"),
+                        rs.getTimestamp("created_at").toLocalDateTime(),
+                        rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
+                        rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
+                );
+                System.out.println(instructor); // 조회한 강사 출력
+
+                if(instructor != null) {
+                    System.out.println("정말 해당 강사 정보를 삭제하시겠습니까? : ");
+                    System.out.println("1. 삭제");
+                    System.out.println("2. 취소");
+                    Scanner sc = new Scanner(System.in);
+                    int num = sc.nextInt();
+                    sc.nextLine();
+                    switch (num) {
+                        case 1:
+                            String deleteQuery = QueryUtil.getQuery("deleteByInstructorId");
+                            try(PreparedStatement deletePs = connection.prepareStatement(deleteQuery, Statement.RETURN_GENERATED_KEYS)) {
+                                deletePs.setBoolean(1, false);
+                                deletePs.setInt(2, instructorId);
+                                int rows = deletePs.executeUpdate();
+                                return rows > 0;
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                        case 2:
+                            return false;
+                    }
+                } else {
+                    System.out.println("해당 ID의 강사가 없습니다.");
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean registerInstructor(Instructor instructor) {

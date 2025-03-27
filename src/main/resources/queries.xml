@@ -18,6 +18,11 @@
         VALUES (?, ?, ?, ?, ?, now())
     </query>
 
+    <query id="deleteByInstructorId">
+        UPDATE instructors SET status = ?
+        WHERE instructor_id = ?
+    </query>
+
 <!--    <query id="updateUser">-->
 <!--        UPDATE users SET username = ?, email = ?, password_hash = ?, role_id = ? WHERE user_id = ?-->
 <!--    </query>-->

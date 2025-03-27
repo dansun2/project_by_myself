@@ -37,7 +37,7 @@ public class InstructorView {
 //                case 2 -> updateInstructor();
                 case 3 -> getAllInstructors();
                 case 4 -> findByInstructorId();
-//                case 4 -> deleteInstructor();
+                case 5 -> deleteByInstructorId();
                 case 0 -> {
                     return;
                 }
@@ -97,6 +97,20 @@ public class InstructorView {
             System.out.println("강사 정보 등록 중 오류가 발생했습니다.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+
+    private void deleteByInstructorId() {
+        System.out.print("삭제할 강사 ID 번호를 입력하세요 : ");
+        int instructorId = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean result = instructorService.deleteByInstructorId(instructorId);
+        if (result) {
+            System.out.println("강사 정보 삭제를 완료했습니다.");
+        } else {
+            System.out.println("강사 정보 삭제에 실패했습니다.");
         }
     }
 
