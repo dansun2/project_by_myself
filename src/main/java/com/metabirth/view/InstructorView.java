@@ -33,7 +33,7 @@ public class InstructorView {
             scanner.nextLine(); // 개행 문자 처리
 
             switch (choice) {
-//                case 1 -> registerInstructor();
+                case 1 -> registerInstructor();
 //                case 2 -> updateInstructor();
                 case 3 -> getAllInstructors();
 //                case 4 -> deleteInstructor();
@@ -60,5 +60,35 @@ public class InstructorView {
         }
     }
 
+    private void registerInstructor() {
+        System.out.print("등록할 강사의 이름을 입력하세요 : ");
+        String name = scanner.nextLine();
+
+        System.out.print("등록할 강사의 비밀번호를 입력하세요 : ");
+        String password = scanner.nextLine();
+
+        System.out.print("등록할 강사의 이메일을 입력하세요 : ");
+        String email = scanner.nextLine();
+
+        System.out.print("등록할 강사의 전화번호를 입력하세요 : ");
+        String phone = scanner.nextLine();
+
+        // 처음 등록할때는 활성화(true)상태로 등록함
+        // 수정일, 삭제일 null값 처리 어떻게 할건지 고민
+        Instructor instructor = new Instructor(1,name,email,password,phone,true, LocalDateTime.now(),null,null);
+
+        try {
+            boolean result = instructorService.registerInstructor(instructor);
+            if (result) {
+                System.out.println("강사 정보가 등록되었습니다.");
+            } else {
+                System.out.println("강사 정보 등록에 실패했습니다.");
+            }
+        } catch (SQLException e) {
+            System.out.println("강사 정보 등록 중 오류가 발생했습니다.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

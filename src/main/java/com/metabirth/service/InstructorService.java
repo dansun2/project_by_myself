@@ -33,7 +33,14 @@ public class InstructorService {
         return instructors;
     }
 
-
-
-
+    public boolean registerInstructor(Instructor instructor) throws SQLException {
+        
+        List<Instructor> existingInstructor = getAllInstructors(); // 강사 정보 전체를 가져와서 list에 담음
+        for (Instructor i : existingInstructor) {
+            if (i.getInstructorEmail().equals(instructor.getInstructorEmail())) { // 전체 강사중에 중복되는 email있는지 확인
+                throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+            }
+        }
+        return instructorDao.registerInstructor(instructor);
+    }
 }
