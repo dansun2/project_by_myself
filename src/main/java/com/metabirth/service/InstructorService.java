@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 // 비즈니스 로직을 처리하고 dao로 넘김
 public class InstructorService {
@@ -41,6 +42,10 @@ public class InstructorService {
             return null;
         }
         return instructor;
+    }
+
+    public boolean deleteByInstructorId(int instructorId) {
+        return instructorDao.deleteByInstructorId(instructorId); // view에서 입력받은 id 가져와서 일단 조회
     }
 
     public boolean registerInstructor(Instructor instructor) throws SQLException {
