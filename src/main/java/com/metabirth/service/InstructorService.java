@@ -33,6 +33,16 @@ public class InstructorService {
         return instructors;
     }
 
+    public Instructor findByInstructorId(int instructorId) {
+        Instructor instructor = instructorDao.findByInstructorId(instructorId);
+
+        if(instructor == null) {
+            System.out.println("해당 ID의 강사가 없습니다.");
+            return null;
+        }
+        return instructor;
+    }
+
     public boolean registerInstructor(Instructor instructor) throws SQLException {
         
         List<Instructor> existingInstructor = getAllInstructors(); // 강사 정보 전체를 가져와서 list에 담음

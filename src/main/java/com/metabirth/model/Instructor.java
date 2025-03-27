@@ -13,6 +13,9 @@ public class Instructor {
     private LocalDateTime instructorUpdatedAt;
     private LocalDateTime instructorDeletedAt;
 
+    public Instructor() {
+    }
+
     // 정보를 조회할 때 비밀번호가 출력되면 안되기 때문에 시그니처가 다른 생성자를 하나 더 만듦
     public Instructor(Integer instructorId, String instructorName, String instructorEmail, String instructorPhone, boolean instructorStatus, LocalDateTime instructorCreatedAt, LocalDateTime instructorUpdatedAt, LocalDateTime instructorDeletedAt) {
         this.instructorId = instructorId;
