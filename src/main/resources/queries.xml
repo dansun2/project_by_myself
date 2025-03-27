@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="getAllInstructors">
+        SELECT
+            instructor_id, instructor_name, phone, email, status, created_at, updated_at, deleted_at
+          FROM instructors
+    </query>
+
+<!--    <query id="getUserById">-->
+<!--        SELECT-->
+<!--        *-->
+<!--        FROM users-->
+<!--        WHERE user_id = ?-->
+<!--    </query>-->
+
+    <query id="registerInstructor">
+        INSERT INTO instructors (instructor_name, email, password, phone, status, created_at)
+        VALUES (?, ?, ?, ?, ?, now())
+    </query>
+
+<!--    <query id="updateUser">-->
+<!--        UPDATE users SET username = ?, email = ?, password_hash = ?, role_id = ? WHERE user_id = ?-->
+<!--    </query>-->
+
+<!--    <query id="deleteUser">-->
+<!--        DELETE FROM users WHERE user_id = ?-->
+<!--    </query>-->
+</queries>

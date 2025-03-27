@@ -1,9 +1,8 @@
 package com.metabirth.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Classes {
+public class Class {
     private Integer classId;
     private String className;
     private String classTime;
@@ -14,7 +13,7 @@ public class Classes {
     private LocalDateTime classUpdatedAt;
     private LocalDateTime classDeletedAt;
 
-    public Classes(Integer classId, String className, String classTime, Integer classCapacity, double classPrice, boolean classStatus, LocalDateTime classCreatedAt, LocalDateTime classUpdatedAt, LocalDateTime classDeletedAt) {
+    public Class(Integer classId, String className, String classTime, Integer classCapacity, double classPrice, boolean classStatus, LocalDateTime classCreatedAt, LocalDateTime classUpdatedAt, LocalDateTime classDeletedAt) {
         this.classId = classId;
         this.className = className;
         this.classTime = classTime;

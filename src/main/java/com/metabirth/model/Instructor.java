@@ -2,7 +2,7 @@ package com.metabirth.model;
 
 import java.time.LocalDateTime;
 
-public class Instructors {
+public class Instructor {
     private Integer instructorId;
     private String instructorName;
     private String instructorEmail;
@@ -13,7 +13,19 @@ public class Instructors {
     private LocalDateTime instructorUpdatedAt;
     private LocalDateTime instructorDeletedAt;
 
-    public Instructors(Integer instructorId, String instructorName, String instructorEmail, String instructorPassword, String instructorPhone, boolean instructorStatus, LocalDateTime instructorCreatedAt, LocalDateTime instructorUpdatedAt, LocalDateTime instructorDeletedAt) {
+    // 정보를 조회할 때 비밀번호가 출력되면 안되기 때문에 시그니처가 다른 생성자를 하나 더 만듦
+    public Instructor(Integer instructorId, String instructorName, String instructorEmail, String instructorPhone, boolean instructorStatus, LocalDateTime instructorCreatedAt, LocalDateTime instructorUpdatedAt, LocalDateTime instructorDeletedAt) {
+        this.instructorId = instructorId;
+        this.instructorName = instructorName;
+        this.instructorEmail = instructorEmail;
+        this.instructorPhone = instructorPhone;
+        this.instructorStatus = instructorStatus;
+        this.instructorCreatedAt = instructorCreatedAt;
+        this.instructorUpdatedAt = instructorUpdatedAt;
+        this.instructorDeletedAt = instructorDeletedAt;
+    }
+    
+    public Instructor(Integer instructorId, String instructorName, String instructorEmail, String instructorPassword, String instructorPhone, boolean instructorStatus, LocalDateTime instructorCreatedAt, LocalDateTime instructorUpdatedAt, LocalDateTime instructorDeletedAt) {
         this.instructorId = instructorId;
         this.instructorName = instructorName;
         this.instructorEmail = instructorEmail;
@@ -99,16 +111,13 @@ public class Instructors {
 
     @Override
     public String toString() {
-        return "Instructors{" +
-                "instructorId=" + instructorId +
-                ", instructorName='" + instructorName + '\'' +
-                ", instructorEmail='" + instructorEmail + '\'' +
-                ", instructorPassword='" + instructorPassword + '\'' +
-                ", instructorPhone='" + instructorPhone + '\'' +
-                ", instructorStatus=" + instructorStatus +
-                ", instructorCreatedAt=" + instructorCreatedAt +
-                ", instructorUpdatedAt=" + instructorUpdatedAt +
-                ", instructorDeletedAt=" + instructorDeletedAt +
-                '}';
+        return  "강사ID= " + instructorId +
+                ", 강사이름= '" + instructorName + '\'' +
+                ", 강사이메일= '" + instructorEmail + '\'' +
+                ", 강사휴대폰번호='" + instructorPhone + '\'' +
+                ", 강사상태=" + instructorStatus +
+                ", 강사정보등록일=" + instructorCreatedAt +
+                ", 강사정보수정일=" + instructorUpdatedAt +
+                ", 강사정보삭제일=" + instructorDeletedAt;
     }
 }

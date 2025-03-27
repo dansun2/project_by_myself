@@ -30,15 +30,15 @@ public class Application {
                 case 3 -> startAdminManagement(connection);
                 case 0 -> {
                     connection.close();
-                    System.out.println("🚀 프로그램을 종료합니다.");
+                    System.out.println("프로그램을 종료합니다.");
                     return;
                 }
-                default -> System.out.println("❌ 잘못된 입력입니다. 다시 선택하세요.");
+                default -> System.out.println("잘못된 입력입니다. 다시 선택하세요.");
             }
         }
     }
 
-    private static void startAdminManagement(Connection connection) {
+    private static void startAdminManagement(Connection connection) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -47,7 +47,7 @@ public class Application {
             System.out.println("2. 강사 관리");
             System.out.println("3. 수업 관리");
             System.out.println("4. 공지사항 관리");
-            System.out.println("0. 종료");
+            System.out.println("0. 뒤로가기");
             System.out.print("선택: ");
 
             int choice = scanner.nextInt();
@@ -56,21 +56,19 @@ public class Application {
             switch (choice) {
 //                case 1 -> startRoleManagement(connection);
                 case 2 -> startInstructorManagement(connection);
-                case 3 -> startClassManagement(connection);
+//                case 3 -> startClassManagement(connection);
                 case 0 -> {
                     connection.close();
-                    System.out.println("🚀 프로그램을 종료합니다.");
+                    System.out.println("프로그램을 종료합니다.");
                     return;
                 }
-                default -> System.out.println("❌ 잘못된 입력입니다. 다시 선택하세요.");
+                default -> System.out.println("잘못된 입력입니다. 다시 선택하세요.");
             }
         }
-
-
     }
 
     private static void startInstructorManagement(Connection connection) {
         InstructorView instructorView = new InstructorView(connection);
-        instructorView.showMenu();
+        instructorView.showInstructorMenu();
     }
 }
