@@ -114,9 +114,9 @@ public class Instructor {
 
     @Override
     public String toString() {
-        return  "강사ID= " + instructorId +
-                ", 강사이름= '" + instructorName + '\'' +
-                ", 강사이메일= '" + instructorEmail + '\'' +
+        return  "강사ID=" + instructorId +
+                ", 강사이름='" + instructorName + '\'' +
+                ", 강사이메일='" + instructorEmail + '\'' +
                 ", 강사휴대폰번호='" + instructorPhone + '\'' +
                 ", 강사상태=" + instructorStatus +
                 ", 강사정보등록일=" + instructorCreatedAt +

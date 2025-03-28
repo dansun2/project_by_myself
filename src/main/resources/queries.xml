@@ -19,15 +19,38 @@
     </query>
 
     <query id="deleteByInstructorId">
-        UPDATE instructors SET status = ?
+        UPDATE instructors
+        SET status = ?, , deleted_at = now()
         WHERE instructor_id = ?
     </query>
 
-<!--    <query id="updateUser">-->
-<!--        UPDATE users SET username = ?, email = ?, password_hash = ?, role_id = ? WHERE user_id = ?-->
-<!--    </query>-->
+    <query id="updateName">
+        UPDATE instructors
+        SET instructor_name = ?, updated_at = now()
+        WHERE instructor_id = ?
+    </query>
 
-<!--    <query id="deleteUser">-->
-<!--        DELETE FROM users WHERE user_id = ?-->
-<!--    </query>-->
+    <query id="updatePhone">
+        UPDATE instructors
+        SET phone = ?, updated_at = now()
+        WHERE instructor_id = ?
+    </query>
+
+    <query id="updateEmail">
+        UPDATE instructors
+        SET email = ?, updated_at = now()
+        WHERE instructor_id = ?
+    </query>
+
+    <query id="updateInstructorPhone">
+        UPDATE instructors
+        SET phone = ?, updated_at = now()
+        WHERE instructor_id = ?
+    </query>
+
+    <query id="updateInstructorEmail">
+        UPDATE instructors
+        SET email = ?, updated_at = now()
+        WHERE instructor_id = ?
+    </query>
 </queries>
