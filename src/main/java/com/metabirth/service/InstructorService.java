@@ -44,6 +44,58 @@ public class InstructorService {
         return instructor;
     }
 
+    public Instructor updateByInstructorId(int choice, int instructorId, String input) {
+        // 1번이면 이름 수정, 2번이면 휴대폰수정, 3번이면 이메일수정
+        Instructor instructor = null;
+        switch (choice) {
+            case 1 -> { // 이름 수정 (중복처리 필요 x)
+                boolean result = instructorDao.updateName(instructorId, input);
+                if (result) {
+                    System.out.println("수정이 완료되었습니다.");
+                    instructor = instructorDao.findByInstructorId(instructorId);
+                    return instructor;
+                }
+            }
+
+            case 2 -> { // 휴대폰 수정 (중복처리 필요x)
+                boolean result = instructorDao.updatePhone(instructorId, input);
+                if (result) {
+                    System.out.println("수정이 완료되었습니다.");
+                    instructor = instructorDao.findByInstructorId(instructorId);
+                    return instructor;
+                }
+            }
+            case 3 -> {// 이메일수정 (중복처리 필요)
+                List<Instructor> existingInstructor = null; // 강사정보를 가져와서 넣을 변수
+                try {
+                    existingInstructor = getAllInstructors(); // 콘솔찍었는데 잘 가져옴
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                for (Instructor i : existingInstructor) {
+                    if (i.getInstructorEmail().equals(input)) {
+                        throw new IllegalArgumentException("이미 존재하는 이메일입니다."); // 익셉션 날리지 말고 다시 입력받을 수 있게 하자
+                    }
+                }
+                boolean result = instructorDao.updateEmail(instructorId, input);
+
+                if (result) {
+                    System.out.println("수정이 완료되었습니다.");
+                    instructor = instructorDao.findByInstructorId(instructorId);
+                    return instructor;
+                }
+            }
+        }
+
+
+        if(instructor == null) {
+            System.out.println("해당 ID의 강사가 없습니다.");
+            return null;
+        }
+        return instructor;
+    }
+
     public boolean deleteByInstructorId(int instructorId) {
         return instructorDao.deleteByInstructorId(instructorId); // view에서 입력받은 id 가져와서 일단 조회
     }

@@ -34,7 +34,7 @@ public class InstructorView {
 
             switch (choice) {
                 case 1 -> registerInstructor();
-//                case 2 -> updateInstructor();
+                case 2 -> updateByInstructorId();
                 case 3 -> getAllInstructors();
                 case 4 -> findByInstructorId();
                 case 5 -> deleteByInstructorId();
@@ -66,7 +66,54 @@ public class InstructorView {
         int instructorId = scanner.nextInt();
         scanner.nextLine();
 
-        Instructor instructor = instructorService.findByInstructorId(instructorId);
+        try {
+            Instructor instructor = instructorService.findByInstructorId(instructorId);
+            System.out.println("\n===== 조회된 강사 =====");
+            System.out.println(instructor);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void updateByInstructorId() {
+        System.out.print("수정할 강사 ID 번호를 입력하세요 : ");
+        int instructorId = scanner.nextInt();
+        scanner.nextLine();
+
+        try {
+            Instructor instructor = instructorService.findByInstructorId(instructorId);
+            System.out.println("\n===== 수정할 강사 정보 =====");
+            System.out.println(instructor);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("1. 강사이름");
+        System.out.println("2. 강사휴대폰번호");
+        System.out.println("3. 강사이메일");
+        System.out.print("수정을 원하시는 카테고리 번호를 선택해주세요 : ");
+        int choice = scanner.nextInt(); // 수정할 정보 선택
+        scanner.nextLine();
+        String input = ""; // 수정받을 입력값
+
+        switch (choice) {
+            case 1:
+                System.out.print("수정할 이름을 입력해주세요 : ");
+                input = scanner.nextLine();
+                break;
+            case 2:
+                System.out.print("수정할 휴대폰번호를 입력해주세요 : ");
+                input = scanner.nextLine();
+                break;
+            case 3:
+                System.out.print("수정할 이메일을 입력해주세요 : ");
+                input = scanner.nextLine();
+                break;
+        }
+        Instructor result = instructorService.updateByInstructorId(choice, instructorId, input);
+        System.out.println("\n===== 수정된 강사 정보 =====");
+        System.out.println(result);
+
     }
 
     private void registerInstructor() {
