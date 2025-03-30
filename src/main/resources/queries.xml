@@ -7,6 +7,13 @@
          WHERE status = true
     </query>
 
+    <query id="getAllCourses">
+        SELECT
+            course_id, course_name, course_time, capacity, price, status, created_at, updated_at, deleted_at
+          FROM course
+         WHERE status = true
+    </query>
+
     <query id="findByInstructorId">
         SELECT
         *
@@ -16,6 +23,11 @@
 
     <query id="registerInstructor">
         INSERT INTO instructors (instructor_name, email, password, phone, status, created_at)
+        VALUES (?, ?, ?, ?, ?, now())
+    </query>
+
+    <query id="addCourse">
+        INSERT INTO course (course_name, course_time, capacity, price, status, created_at)
         VALUES (?, ?, ?, ?, ?, now())
     </query>
 
