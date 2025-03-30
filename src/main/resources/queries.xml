@@ -79,4 +79,28 @@
         SET email = ?, updated_at = now()
         WHERE instructor_id = ?
     </query>
+
+    <query id="updateCourseName">
+        UPDATE course
+        SET course_name = ?, updated_at = now()
+        WHERE course_id = ?
+    </query>
+
+    <query id="updateCourseTime">
+        UPDATE course
+        SET course_time = ?, updated_at = now()
+        WHERE course_id = ?
+    </query>
+
+    <query id="updateCourseCapacity">
+        UPDATE course
+        SET capacity = ?, updated_at = now()
+        WHERE course_id = ?
+    </query>
+
+    <query id="updateCoursePrice">
+        UPDATE course
+        SET price = ?, updated_at = now()
+        WHERE course_id = ?
+    </query>
 </queries>

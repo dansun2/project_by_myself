@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.metabirth.model.Course;
-import com.metabirth.model.Instructor;
 import com.metabirth.util.QueryUtil;
 
 public class CourseDao {
@@ -101,6 +100,54 @@ public class CourseDao {
 			deletePs.setInt(2, courseId);
 			int rows = deletePs.executeUpdate();
 			return rows > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public boolean updateCourseName(int courseId, String input) {
+		String query = QueryUtil.getQuery("updateCourseName");
+		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+			ps.setString(1, input);
+			ps.setInt(2,courseId);
+			int row = ps.executeUpdate();
+			return row > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public boolean updateCourseTime(int courseId, String input) {
+		String query = QueryUtil.getQuery("updateCourseTime");
+		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+			ps.setString(1, input);
+			ps.setInt(2,courseId);
+			int row = ps.executeUpdate();
+			return row > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public boolean updateCourseCapacity(int courseId, String input) {
+		String query = QueryUtil.getQuery("updateCourseCapacity");
+		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+			ps.setInt(1, Integer.parseInt(input));
+			ps.setInt(2,courseId);
+			int row = ps.executeUpdate();
+			return row > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public boolean updateCoursePrice(int courseId, String input) {
+		String query = QueryUtil.getQuery("updateCoursePrice");
+		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+			ps.setDouble(1, Double.parseDouble(input));
+			ps.setInt(2,courseId);
+			int row = ps.executeUpdate();
+			return row > 0;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
