@@ -32,4 +32,9 @@ public class CourseService {
 
 		return courses;
 	}
+
+	// 강의 등록부분. 이름이 동일한 강의도 등록이 가능함
+	public boolean addCourse(Course course) throws SQLException {
+		return courseDao.addCourse(course);
+	}
 }

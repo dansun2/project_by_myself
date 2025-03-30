@@ -1,6 +1,7 @@
 package com.metabirth.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,5 +44,25 @@ public class CourseDao {
 			e.printStackTrace();
 		}
 		return courses;
+	}
+
+	public boolean addCourse(Course course) {
+		String query = QueryUtil.getQuery("addCourse");
+
+		// Statement.RETURN_GENERATED_KEYS는 데이터가 생성된 후 자동생성된 PK값을 가져오는 옵션.
+		// 값을 꺼내오려면 ResultSet타입으로 ps.getGeneratedKeys()를 가져와야함.
+		try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+			ps.setString(1, course.getCourseName());
+			ps.setString(2, course.getCourseTime());
+			ps.setInt(3, course.getCourseCapacity());
+			ps.setDouble(4,course.getCoursePrice());
+			ps.setBoolean(5,course.isCourseStatus());
+
+			int rows = ps.executeUpdate(); // executeUpdate는 결과로 나온 행의 수를 반환
+			return rows > 0; // db에 등록이 되었으면 true
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

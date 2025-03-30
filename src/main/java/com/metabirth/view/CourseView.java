@@ -33,7 +33,7 @@ public class CourseView {
 			scanner.nextLine(); // 개행 문자 처리
 
 			switch (choice) {
-				// case 1 -> registerCourse();
+				case 1 -> addCourse();
 				// case 2 -> updateByCourseId();
 				case 3 -> getAllCourses();
 				// case 4 -> findByCourseId();
@@ -121,37 +121,37 @@ public class CourseView {
 	//
 	// }
 	//
-	// private void registerCourse() {
-	// 	System.out.print("등록할 강의명을 입력하세요 : ");
-	// 	String name = scanner.nextLine();
-	//
-	// 	System.out.print("등록할 강의의 시간을 입력하세요 : ");
-	// 	String time = scanner.nextLine();
-	//
-	// 	System.out.print("등록할 강의의 수용인원을 입력하세요 : ");
-	// 	int capacity = scanner.nextInt();
-	// 	scanner.nextLine();
-	//
-	// 	System.out.print("등록할 강의의 가격을 입력하세요 : ");
-	// 	double price = scanner.nextInt();
-	//
-	// 	// 처음 등록할때는 활성화(true)상태로 등록함
-	// 	// 수정일, 삭제일 null값 처리 어떻게 할건지 고민
-	// 	Course course = new Course(1,name,time,capacity,price,true, LocalDateTime.now(),null,null);
-	//
-	// 	try {
-	// 		boolean result = courseService.registerCourse(course);
-	// 		if (result) {
-	// 			System.out.println("강의 정보가 등록되었습니다.");
-	// 		} else {
-	// 			System.out.println("강의 정보 등록에 실패했습니다.");
-	// 		}
-	// 	} catch (SQLException e) {
-	// 		System.out.println("강의 정보 등록 중 오류가 발생했습니다.");
-	// 	} catch (IllegalArgumentException e) {
-	// 		System.out.println(e.getMessage());
-	// 	}
-	// }
+	private void addCourse() {
+		System.out.print("등록할 강의명을 입력하세요 : ");
+		String name = scanner.nextLine();
+
+		System.out.print("등록할 강의의 시간을 입력하세요 : ");
+		String time = scanner.nextLine();
+
+		System.out.print("등록할 강의의 수용인원을 입력하세요 : ");
+		int capacity = scanner.nextInt();
+		scanner.nextLine();
+
+		System.out.print("등록할 강의의 가격을 입력하세요 : ");
+		double price = scanner.nextInt();
+
+		// 처음 등록할때는 활성화(true)상태로 등록함
+		// 수정일, 삭제일 null값 처리 어떻게 할건지 고민
+		Course course = new Course(1,name,time,capacity,price,true, LocalDateTime.now(),null,null);
+
+		try {
+			boolean result = courseService.addCourse(course);
+			if (result) {
+				System.out.println("강의 정보가 등록되었습니다.");
+			} else {
+				System.out.println("강의 정보 등록에 실패했습니다.");
+			}
+		} catch (SQLException e) {
+			System.out.println("강의 정보 등록 중 오류가 발생했습니다.");
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	//
 	//
 	// private void deleteByCourseId() {

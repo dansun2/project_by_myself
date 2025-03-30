@@ -97,4 +97,16 @@ public class Course {
         this.courseDeletedAt = courseDeletedAt;
     }
 
+    @Override
+    public String toString() {
+        return "강의번호=" + courseId +
+            ", 강의명='" + courseName + '\'' +
+            ", 강의 시간='" + courseTime + '\'' +
+            ", 강의 수용인원=" + courseCapacity +
+            ", 강의 가격=" + coursePrice +
+            ", 강의 상태=" + courseStatus +
+            ", 강의 등록일=" + courseCreatedAt +
+            ", 강의 수정일=" + courseUpdatedAt +
+            ", 강의 삭제일=" + courseDeletedAt;
+    }
 }
