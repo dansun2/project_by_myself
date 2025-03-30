@@ -7,6 +7,13 @@
          WHERE status = true
     </query>
 
+    <query id="getAllCourses">
+        SELECT
+            course_id, course_name, course_time, capacity, price, status, created_at, updated_at, deleted_at
+          FROM courses
+         WHERE status = true
+    </query>
+
     <query id="findByInstructorId">
         SELECT
         *
