@@ -32,6 +32,16 @@ public class InstructorService {
         return instructors;
     }
 
+    public List<Instructor> getAllDeletedInstructors() throws SQLException {
+        List<Instructor> instructors = instructorDao.getAllDeletedInstructors();
+
+        if(instructors == null) {
+            log.error("조회한 사용자의 정보가 없거나 DB와 연결하는 과정에서 오류가 발생했습니다.");
+            return null;
+        }
+        return instructors;
+    }
+
     public Instructor findByInstructorId(int instructorId) {
         Instructor instructor = instructorDao.findByInstructorId(instructorId);
 
