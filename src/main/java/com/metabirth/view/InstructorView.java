@@ -71,8 +71,10 @@ public class InstructorView {
 
         try {
             Instructor instructor = instructorService.findByInstructorId(instructorId);
-            System.out.println("\n===== 조회된 강사 =====");
-            System.out.println(instructor);
+            if (instructor != null) {
+                System.out.println("\n===== 조회된 강사 =====");
+                System.out.println(instructor);
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -85,8 +87,10 @@ public class InstructorView {
 
         try {
             Instructor instructor = instructorService.findByInstructorId(instructorId);
-            System.out.println("\n===== 수정할 강사 정보 =====");
-            System.out.println(instructor);
+            if (instructor != null) {
+                System.out.println("\n===== 수정할 강사 정보 =====");
+                System.out.println(instructor);
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -159,8 +163,10 @@ public class InstructorView {
         // 삭제할 강사 번호를 조회해서 정보를 한 번 띄워줌
         try {
             Instructor instructor = instructorService.findByInstructorId(instructorId);
-            System.out.println("\n===== 삭제할 강사 정보 =====");
-            System.out.println(instructor);
+            if (instructor != null) {
+                System.out.println("\n===== 삭제할 강사 정보 =====");
+                System.out.println(instructor);
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
