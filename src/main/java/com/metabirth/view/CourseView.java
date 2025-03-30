@@ -37,7 +37,7 @@ public class CourseView {
 				// case 2 -> updateByCourseId();
 				case 3 -> getAllCourses();
 				case 4 -> findByCourseId();
-				// case 5 -> deleteByCourseId();
+				case 5 -> deleteByCourseId();
 				case 0 -> {
 					return;
 				}
@@ -152,43 +152,43 @@ public class CourseView {
 			System.out.println(e.getMessage());
 		}
 	}
-	//
-	//
-	// private void deleteByCourseId() {
-	// 	System.out.print("삭제할 강의 ID 번호를 입력하세요 : ");
-	// 	int courseId = scanner.nextInt();
-	// 	scanner.nextLine();
-	//
-	// 	// 삭제할 강의 번호를 조회해서 정보를 한 번 띄워줌
-	// 	try {
-	// 		Course course = courseService.findByCourseId(courseId);
-	// 		System.out.println("\n===== 삭제할 강의 정보 =====");
-	// 		System.out.println(course);
-	// 	} catch (IllegalArgumentException e) {
-	// 		System.out.println(e.getMessage());
-	// 	}
-	//
-	// 	while (true) {
-	// 		System.out.println("정말 해당 강의 정보를 삭제하시겠습니까?");
-	// 		System.out.println("1. 삭제");
-	// 		System.out.println("2. 취소");
-	// 		int num = scanner.nextInt();
-	// 		scanner.nextLine();
-	//
-	// 		if (num == 1) {
-	// 			boolean result = courseService.deleteByCourseId(courseId);
-	// 			if (result) {
-	// 				System.out.println("강의 정보 삭제를 완료했습니다.");
-	// 			} else {
-	// 				System.out.println("강의 정보 삭제에 실패했습니다.");
-	// 			}
-	// 			break;
-	// 		} else if (num == 2) {
-	// 			System.out.println("강의 정보 삭제를 취소합니다.");
-	// 			break;
-	// 		} else {
-	// 			System.out.println("1 또는 2를 입력하세요.");
-	// 		}
-	// 	}
-	// }
+
+
+	private void deleteByCourseId() {
+		System.out.print("삭제할 강의 ID 번호를 입력하세요 : ");
+		int courseId = scanner.nextInt();
+		scanner.nextLine();
+
+		// 삭제할 강의 번호를 조회해서 정보를 한 번 띄워줌
+		try {
+			Course course = courseService.findByCourseId(courseId);
+			System.out.println("\n===== 삭제할 강의 정보 =====");
+			System.out.println(course);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+
+		while (true) {
+			System.out.println("정말 해당 강의 정보를 삭제하시겠습니까?");
+			System.out.println("1. 삭제");
+			System.out.println("2. 취소");
+			int num = scanner.nextInt();
+			scanner.nextLine();
+
+			if (num == 1) {
+				boolean result = courseService.deleteByCourseId(courseId);
+				if (result) {
+					System.out.println("강의 정보 삭제를 완료했습니다.");
+				} else {
+					System.out.println("강의 정보 삭제에 실패했습니다.");
+				}
+				break;
+			} else if (num == 2) {
+				System.out.println("강의 정보 삭제를 취소합니다.");
+				break;
+			} else {
+				System.out.println("1 또는 2를 입력하세요.");
+			}
+		}
+	}
 }

@@ -92,4 +92,17 @@ public class CourseDao {
 		}
 		return course;
 	}
+
+	public boolean deleteByCourseId(int courseId) {
+		String query = QueryUtil.getQuery("deleteByCourseId");
+
+		try(PreparedStatement deletePs = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+			deletePs.setBoolean(1, false);
+			deletePs.setInt(2, courseId);
+			int rows = deletePs.executeUpdate();
+			return rows > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
