@@ -21,6 +21,13 @@
         WHERE instructor_id = ?
     </query>
 
+    <query id="findByCourseId">
+        SELECT
+        *
+        FROM course
+        WHERE course_id = ?
+    </query>
+
     <query id="registerInstructor">
         INSERT INTO instructors (instructor_name, email, password, phone, status, created_at)
         VALUES (?, ?, ?, ?, ?, now())

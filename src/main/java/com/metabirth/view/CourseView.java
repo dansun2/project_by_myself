@@ -36,7 +36,7 @@ public class CourseView {
 				case 1 -> addCourse();
 				// case 2 -> updateByCourseId();
 				case 3 -> getAllCourses();
-				// case 4 -> findByCourseId();
+				case 4 -> findByCourseId();
 				// case 5 -> deleteByCourseId();
 				case 0 -> {
 					return;
@@ -61,20 +61,20 @@ public class CourseView {
 		}
 	}
 
-	// private void findByCourseId() {
-	// 	System.out.print("검색할 강의 ID 번호를 입력하세요 : ");
-	// 	int courseId = scanner.nextInt();
-	// 	scanner.nextLine();
-	//
-	// 	try {
-	// 		Course course = courseService.findByCourseId(courseId);
-	// 		System.out.println("\n===== 조회된 강의 =====");
-	// 		System.out.println(course);
-	// 	} catch (IllegalArgumentException e) {
-	// 		System.out.println(e.getMessage());
-	// 	}
-	// }
-	//
+	private void findByCourseId() {
+		System.out.print("검색할 강의 ID 번호를 입력하세요 : ");
+		int courseId = scanner.nextInt();
+		scanner.nextLine();
+
+		try {
+			Course course = courseService.findByCourseId(courseId);
+			System.out.println("\n===== 조회된 강의 =====");
+			System.out.println(course);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	// private void updateByCourseId() {
 	// 	System.out.print("수정할 강의 ID 번호를 입력하세요 : ");
 	// 	int courseId = scanner.nextInt();

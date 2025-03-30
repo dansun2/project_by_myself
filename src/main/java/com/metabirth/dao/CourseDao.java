@@ -65,4 +65,31 @@ public class CourseDao {
 		}
 		return false;
 	}
+
+	public Course findByCourseId(int courseId) {
+		Course course = null; // 조회한 강사의 정보를 담을 객체 생성
+		String query = QueryUtil.getQuery("findByCourseId");
+
+		try (PreparedStatement ps = connection.prepareStatement(query)) {
+			ps.setInt(1, courseId);
+			ResultSet rs = ps.executeQuery();// 쿼리를 날려서 결과값을 rs에 담음
+
+			if(rs.next()) {
+				course = new Course(
+					rs.getInt("course_id"),
+					rs.getString("course_name"),
+					rs.getString("course_time"),
+					rs.getInt("capacity"),
+					rs.getDouble("price"),
+					rs.getBoolean("status"),
+					rs.getTimestamp("created_at").toLocalDateTime(),
+					rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
+					rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
+				);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return course;
+	}
 }

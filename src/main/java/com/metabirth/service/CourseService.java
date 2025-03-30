@@ -37,4 +37,14 @@ public class CourseService {
 	public boolean addCourse(Course course) throws SQLException {
 		return courseDao.addCourse(course);
 	}
+	
+	public Course findByCourseId(int courseId) {
+		Course course = courseDao.findByCourseId(courseId);
+
+		if(course == null) {
+			System.out.println("해당 ID의 강의가 없습니다.");
+			return null;
+		}
+		return course;
+	}
 }
