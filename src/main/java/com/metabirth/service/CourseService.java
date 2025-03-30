@@ -9,10 +9,9 @@ import org.slf4j.LoggerFactory;
 
 import com.metabirth.dao.CourseDao;
 import com.metabirth.model.Course;
-import com.metabirth.model.Instructor;
 
 public class CourseService {
-	private static final Logger log = LoggerFactory.getLogger(InstructorService.class);
+	private static final Logger log = LoggerFactory.getLogger(CourseService.class);
 	private final CourseDao courseDao;
 	private final Connection connection;
 
@@ -50,6 +49,50 @@ public class CourseService {
 
 	public boolean deleteByCourseId(int courseId) {
 		return courseDao.deleteByCourseId(courseId); // view에서 입력받은 id 가져와서 일단 조회
+	}
+
+	public Course updateByCourseId(int choice, int courseId, String input) {
+		// 1번이면 이름 수정, 2번이면 휴대폰수정, 3번이면 이메일수정
+		Course course = null;
+		switch (choice) {
+			case 1 -> { // 강의명 수정 (중복처리 필요 x)
+				boolean result = courseDao.updateCourseName(courseId, input);
+				if (result) {
+					System.out.println("수정이 완료되었습니다.");
+					course = courseDao.findByCourseId(courseId);
+					return course;
+				}
+			}
+			case 2 -> { // 강의시간 수정
+				boolean result = courseDao.updateCourseTime(courseId, input);
+				if (result) {
+					System.out.println("수정이 완료되었습니다.");
+					course = courseDao.findByCourseId(courseId);
+					return course;
+				}
+			}
+			case 3 -> {// 수용인원 수정
+				boolean result = courseDao.updateCourseCapacity(courseId, input);
+				if (result) {
+					System.out.println("수정이 완료되었습니다.");
+					course = courseDao.findByCourseId(courseId);
+					return course;
+				}
+			}
+			case 4 -> { // 강의가격 수정
+				boolean result = courseDao.updateCoursePrice(courseId, input);
+				if (result) {
+					System.out.println("수정이 완료되었습니다.");
+					course = courseDao.findByCourseId(courseId);
+					return course;
+				}
+			}
+		}
+		if(course == null) {
+			System.out.println("해당 ID의 강사가 없습니다.");
+			return null;
+		}
+		return course;
 	}
 
 }

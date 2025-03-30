@@ -34,7 +34,7 @@ public class CourseView {
 
 			switch (choice) {
 				case 1 -> addCourse();
-				// case 2 -> updateByCourseId();
+				case 2 -> updateByCourseId();
 				case 3 -> getAllCourses();
 				case 4 -> findByCourseId();
 				case 5 -> deleteByCourseId();
@@ -75,52 +75,52 @@ public class CourseView {
 		}
 	}
 
-	// private void updateByCourseId() {
-	// 	System.out.print("수정할 강의 ID 번호를 입력하세요 : ");
-	// 	int courseId = scanner.nextInt();
-	// 	scanner.nextLine();
-	//
-	// 	try {
-	// 		Course course = courseService.findByCourseId(courseId);
-	// 		System.out.println("\n===== 수정할 강의 정보 =====");
-	// 		System.out.println(course);
-	// 	} catch (IllegalArgumentException e) {
-	// 		System.out.println(e.getMessage());
-	// 	}
-	//
-	// 	System.out.println("1. 강의명");
-	// 	System.out.println("2. 강의 시간");
-	// 	System.out.println("3. 강의 수용인원");
-	// 	System.out.println("4. 강의 가격");
-	// 	System.out.print("수정을 원하시는 카테고리 번호를 선택해주세요 : ");
-	// 	int choice = scanner.nextInt(); // 수정할 정보 선택
-	// 	scanner.nextLine();
-	// 	String input = ""; // 수정받을 입력값
-	//
-	// 	switch (choice) {
-	// 		case 1:
-	// 			System.out.print("수정할 강의명을 입력해주세요 : ");
-	// 			input = scanner.nextLine();
-	// 			break;
-	// 		case 2:
-	// 			System.out.print("수정할 강의 시간을 입력해주세요 : ");
-	// 			input = scanner.nextLine();
-	// 			break;
-	// 		case 3:
-	// 			System.out.print("수정할 강의 수용인원을 입력해주세요 : ");
-	// 			input = scanner.nextLine();
-	// 			break;
-	// 		case 4:
-	// 			System.out.print("수정할 강의 가격을 입력해주세요 : ");
-	// 			input = scanner.nextLine();
-	// 			break;
-	// 	}
-	// 	Course result = courseService.updateByCourseId(choice, courseId, input);
-	// 	System.out.println("\n===== 수정된 강의 정보 =====");
-	// 	System.out.println(result);
-	//
-	// }
-	//
+	private void updateByCourseId() {
+		System.out.print("수정할 강의 ID 번호를 입력하세요 : ");
+		int courseId = scanner.nextInt();
+		scanner.nextLine();
+
+		try {
+			Course course = courseService.findByCourseId(courseId);
+			System.out.println("\n===== 수정할 강의 정보 =====");
+			System.out.println(course);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+
+		System.out.println("1. 강의명");
+		System.out.println("2. 강의 시간");
+		System.out.println("3. 강의 수용인원");
+		System.out.println("4. 강의 가격");
+		System.out.print("수정을 원하시는 카테고리 번호를 선택해주세요 : ");
+		int choice = scanner.nextInt(); // 수정할 정보 선택
+		scanner.nextLine();
+		String input = ""; // 수정받을 입력값
+
+		switch (choice) {
+			case 1:
+				System.out.print("수정할 강의명을 입력해주세요 : ");
+				input = scanner.nextLine();
+				break;
+			case 2:
+				System.out.print("수정할 강의 시간을 입력해주세요 : ");
+				input = scanner.nextLine();
+				break;
+			case 3:
+				System.out.print("수정할 강의 수용인원을 입력해주세요 : ");
+				input = scanner.nextLine();
+				break;
+			case 4:
+				System.out.print("수정할 강의 가격을 입력해주세요 : ");
+				input = scanner.nextLine();
+				break;
+		}
+		Course result = courseService.updateByCourseId(choice, courseId, input);
+		System.out.println("\n===== 수정된 강의 정보 =====");
+		System.out.println(result);
+
+	}
+
 	private void addCourse() {
 		System.out.print("등록할 강의명을 입력하세요 : ");
 		String name = scanner.nextLine();
