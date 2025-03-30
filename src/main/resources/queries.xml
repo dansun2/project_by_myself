@@ -44,6 +44,12 @@
         WHERE instructor_id = ?
     </query>
 
+    <query id="deleteByCourseId">
+        UPDATE course
+        SET status = ?, deleted_at = now()
+        WHERE course_id = ?
+    </query>
+
     <query id="updateName">
         UPDATE instructors
         SET instructor_name = ?, updated_at = now()

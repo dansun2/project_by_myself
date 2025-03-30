@@ -47,4 +47,9 @@ public class CourseService {
 		}
 		return course;
 	}
+
+	public boolean deleteByCourseId(int courseId) {
+		return courseDao.deleteByCourseId(courseId); // view에서 입력받은 id 가져와서 일단 조회
+	}
+
 }

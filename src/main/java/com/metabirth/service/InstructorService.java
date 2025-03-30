@@ -97,7 +97,7 @@ public class InstructorService {
     }
 
     public boolean deleteByInstructorId(int instructorId) {
-        return instructorDao.deleteByInstructorId(instructorId); // view에서 입력받은 id 가져와서 일단 조회
+        return instructorDao.deleteByInstructorId(instructorId);
     }
 
     public boolean registerInstructor(Instructor instructor) throws SQLException {

@@ -110,7 +110,6 @@ public class InstructorDao {
     }
 
     public boolean deleteByInstructorId(int instructorId) {
-        Instructor instructor = null;
         String query = QueryUtil.getQuery("deleteByInstructorId");
 
         try(PreparedStatement deletePs = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
