@@ -4,6 +4,7 @@
         SELECT
             instructor_id, instructor_name, phone, email, status, created_at, updated_at, deleted_at
           FROM instructors
+         WHERE status = true
     </query>
 
     <query id="findByInstructorId">
@@ -20,7 +21,7 @@
 
     <query id="deleteByInstructorId">
         UPDATE instructors
-        SET status = ?, , deleted_at = now()
+        SET status = ?, deleted_at = now()
         WHERE instructor_id = ?
     </query>
 
