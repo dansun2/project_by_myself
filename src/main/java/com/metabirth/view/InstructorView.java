@@ -2,9 +2,12 @@ package com.metabirth.view;
 
 import com.metabirth.model.Instructor;
 import com.metabirth.service.InstructorService;
+import com.metabirth.util.QueryUtil;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
@@ -153,12 +156,36 @@ public class InstructorView {
         int instructorId = scanner.nextInt();
         scanner.nextLine();
 
-        boolean result = instructorService.deleteByInstructorId(instructorId);
-        if (result) {
-            System.out.println("강사 정보 삭제를 완료했습니다.");
-        } else {
-            System.out.println("강사 정보 삭제에 실패했습니다.");
+        // 삭제할 강사 번호를 조회해서 정보를 한 번 띄워줌
+        try {
+            Instructor instructor = instructorService.findByInstructorId(instructorId);
+            System.out.println("\n===== 삭제할 강사 정보 =====");
+            System.out.println(instructor);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        while (true) {
+            System.out.println("정말 해당 강사 정보를 삭제하시겠습니까?");
+            System.out.println("1. 삭제");
+            System.out.println("2. 취소");
+            int num = scanner.nextInt();
+            scanner.nextLine();
+
+            if (num == 1) {
+                boolean result = instructorService.deleteByInstructorId(instructorId);
+                if (result) {
+                    System.out.println("강사 정보 삭제를 완료했습니다.");
+                } else {
+                    System.out.println("강사 정보 삭제에 실패했습니다.");
+                }
+                break;
+            } else if (num == 2) {
+                System.out.println("강사 정보 삭제를 취소합니다.");
+                break;
+            } else {
+                System.out.println("1 또는 2를 입력하세요.");
+            }
         }
     }
-
 }
