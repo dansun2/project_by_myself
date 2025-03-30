@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <queries>
+<!--활성화 상태의 강사만 보여줌-->
     <query id="getAllInstructors">
         SELECT
             instructor_id, instructor_name, phone, email, status, created_at, updated_at, deleted_at
           FROM instructors
          WHERE status = true
     </query>
-
-    <query id="getAllCourses">
-        SELECT
-            course_id, course_name, course_time, capacity, price, status, created_at, updated_at, deleted_at
-          FROM course
-         WHERE status = true
-    </query>
-
+<!--활성화 상태의 강사만 보여줌-->
     <query id="findByInstructorId">
         SELECT
-        *
-        FROM instructors
-        WHERE instructor_id = ?
-    </query>
-
-    <query id="findByCourseId">
-        SELECT
-        *
-        FROM course
-        WHERE course_id = ?
+            *
+          FROM instructors
+         WHERE instructor_id = ? AND status = true
     </query>
 
     <query id="registerInstructor">
@@ -33,38 +20,9 @@
         VALUES (?, ?, ?, ?, ?, now())
     </query>
 
-    <query id="addCourse">
-        INSERT INTO course (course_name, course_time, capacity, price, status, created_at)
-        VALUES (?, ?, ?, ?, ?, now())
-    </query>
-
-    <query id="deleteByInstructorId">
-        UPDATE instructors
-        SET status = ?, deleted_at = now()
-        WHERE instructor_id = ?
-    </query>
-
-    <query id="deleteByCourseId">
-        UPDATE course
-        SET status = ?, deleted_at = now()
-        WHERE course_id = ?
-    </query>
-
-    <query id="updateName">
+    <query id="updateInstructorName">
         UPDATE instructors
         SET instructor_name = ?, updated_at = now()
-        WHERE instructor_id = ?
-    </query>
-
-    <query id="updatePhone">
-        UPDATE instructors
-        SET phone = ?, updated_at = now()
-        WHERE instructor_id = ?
-    </query>
-
-    <query id="updateEmail">
-        UPDATE instructors
-        SET email = ?, updated_at = now()
         WHERE instructor_id = ?
     </query>
 
@@ -78,6 +36,31 @@
         UPDATE instructors
         SET email = ?, updated_at = now()
         WHERE instructor_id = ?
+    </query>
+
+    <query id="deleteByInstructorId">
+        UPDATE instructors
+        SET status = ?, deleted_at = now()
+        WHERE instructor_id = ?
+    </query>
+
+    <query id="getAllCourses">
+        SELECT
+            course_id, course_name, course_time, capacity, price, status, created_at, updated_at, deleted_at
+          FROM course
+         WHERE status = true
+    </query>
+
+    <query id="findByCourseId">
+        SELECT
+        *
+        FROM course
+        WHERE course_id = ?
+    </query>
+
+    <query id="addCourse">
+        INSERT INTO course (course_name, course_time, capacity, price, status, created_at)
+        VALUES (?, ?, ?, ?, ?, now())
     </query>
 
     <query id="updateCourseName">
@@ -101,6 +84,12 @@
     <query id="updateCoursePrice">
         UPDATE course
         SET price = ?, updated_at = now()
+        WHERE course_id = ?
+    </query>
+
+    <query id="deleteByCourseId">
+        UPDATE course
+        SET status = ?, deleted_at = now()
         WHERE course_id = ?
     </query>
 </queries>

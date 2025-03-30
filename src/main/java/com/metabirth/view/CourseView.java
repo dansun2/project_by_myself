@@ -68,8 +68,10 @@ public class CourseView {
 
 		try {
 			Course course = courseService.findByCourseId(courseId);
-			System.out.println("\n===== 조회된 강의 =====");
-			System.out.println(course);
+			if (course != null) { // 찾는 강의가 있을때만 띄워줌
+				System.out.println("\n===== 조회된 강의 =====");
+				System.out.println(course);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
@@ -82,8 +84,10 @@ public class CourseView {
 
 		try {
 			Course course = courseService.findByCourseId(courseId);
-			System.out.println("\n===== 수정할 강의 정보 =====");
-			System.out.println(course);
+			if (course != null) {
+				System.out.println("\n===== 수정할 강의 정보 =====");
+				System.out.println(course);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
@@ -162,8 +166,10 @@ public class CourseView {
 		// 삭제할 강의 번호를 조회해서 정보를 한 번 띄워줌
 		try {
 			Course course = courseService.findByCourseId(courseId);
-			System.out.println("\n===== 삭제할 강의 정보 =====");
-			System.out.println(course);
+			if (course != null) {
+				System.out.println("\n===== 삭제할 강의 정보 =====");
+				System.out.println(course);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}

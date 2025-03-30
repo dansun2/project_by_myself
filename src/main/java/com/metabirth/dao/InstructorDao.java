@@ -70,8 +70,28 @@ public class InstructorDao {
         return instructor;
     }
 
-    public boolean updateEmail(int instructorId, String input) {
-        String query = QueryUtil.getQuery("updateEmail");
+    public boolean registerInstructor(Instructor instructor) {
+        String query = QueryUtil.getQuery("registerInstructor");
+
+        // Statement.RETURN_GENERATED_KEYS는 데이터가 생성된 후 자동생성된 PK값을 가져오는 옵션.
+        // 값을 꺼내오려면 ResultSet타입으로 ps.getGeneratedKeys()를 가져와야함.
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, instructor.getInstructorName());
+            ps.setString(2,instructor.getInstructorEmail());
+            ps.setString(3,instructor.getInstructorPassword());
+            ps.setString(4,instructor.getInstructorPhone());
+            ps.setBoolean(5,instructor.isInstructorStatus());
+
+            int rows = ps.executeUpdate(); // executeUpdate는 결과로 나온 행의 수를 반환
+            return rows > 0; // db에 등록이 되었으면 true
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateInstructorEmail(int instructorId, String input) {
+        String query = QueryUtil.getQuery("updateInstructorEmail");
         System.out.println(query);
         System.out.println(input);
         System.out.println(instructorId);
@@ -85,8 +105,8 @@ public class InstructorDao {
         }
     }
 
-    public boolean updatePhone(int instructorId, String input) {
-        String query = QueryUtil.getQuery("updatePhone");
+    public boolean updateInstructorPhone(int instructorId, String input) {
+        String query = QueryUtil.getQuery("updateInstructorPhone");
         try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, input);
             ps.setInt(2,instructorId);
@@ -97,8 +117,8 @@ public class InstructorDao {
         }
     }
 
-    public boolean updateName(int instructorId, String input) {
-        String query = QueryUtil.getQuery("updateName");
+    public boolean updateInstructorName(int instructorId, String input) {
+        String query = QueryUtil.getQuery("updateInstructorName");
         try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, input);
             ps.setInt(2,instructorId);
@@ -120,25 +140,5 @@ public class InstructorDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public boolean registerInstructor(Instructor instructor) {
-        String query = QueryUtil.getQuery("registerInstructor");
-
-        // Statement.RETURN_GENERATED_KEYS는 데이터가 생성된 후 자동생성된 PK값을 가져오는 옵션.
-        // 값을 꺼내오려면 ResultSet타입으로 ps.getGeneratedKeys()를 가져와야함.
-        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, instructor.getInstructorName());
-            ps.setString(2,instructor.getInstructorEmail());
-            ps.setString(3,instructor.getInstructorPassword());
-            ps.setString(4,instructor.getInstructorPhone());
-            ps.setBoolean(5,instructor.isInstructorStatus());
-
-            int rows = ps.executeUpdate(); // executeUpdate는 결과로 나온 행의 수를 반환
-            return rows > 0; // db에 등록이 되었으면 true
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 }
