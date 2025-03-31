@@ -1,6 +1,7 @@
 package com.metabirth.view;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.metabirth.service.InstructorCourseService;
@@ -42,7 +43,16 @@ public class InstructorCourseView {
 		}
 	}
 
-	public void assignCourseToInstructor() {
+	public void assignCourseToInstructor() throws SQLException {
 
+		System.out.print("수업을 맡길 강사 ID를 입력하세요 : ");
+		int instructorId = scanner.nextInt();
+		scanner.nextLine();
+
+		System.out.print("해당 강사에게 배정할 수업 ID를 입력하세요 : ");
+		int courseId = scanner.nextInt();
+		scanner.nextLine();
+
+		instructorCourseService.assignCourseToInstructor(instructorId, courseId);
 	}
 }
