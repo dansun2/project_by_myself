@@ -29,6 +29,7 @@ public class InstructorView {
             System.out.println("3. 강사 전체 조회");
             System.out.println("4. 강사 상세 조회");
             System.out.println("5. 강사 정보 삭제");
+            System.out.println("6. 삭제된 강사 확인");
             System.out.println("0. 뒤로가기");
             System.out.print("선택하세요: ");
 
@@ -41,6 +42,7 @@ public class InstructorView {
                 case 3 -> getAllInstructors();
                 case 4 -> findByInstructorId();
                 case 5 -> deleteByInstructorId();
+                case 6 -> getAllDeletedInstructors();
                 case 0 -> {
                     return;
                 }
@@ -57,6 +59,21 @@ public class InstructorView {
                 System.out.println("등록된 강사가 없습니다.");
             } else {
                 System.out.println("\n===== 전체 강사 목록 =====");
+                instructors.forEach(instructor -> System.out.println(instructor));
+            }
+        } catch (SQLException e) {
+            System.out.println("강사 목록을 조회하는 중 오류가 발생했습니다.");
+        }
+    }
+
+    private void getAllDeletedInstructors() {
+        try {
+            List<Instructor> instructors = instructorService.getAllDeletedInstructors();
+
+            if (instructors.isEmpty()) {
+                System.out.println("삭제된 강사가 없습니다.");
+            } else {
+                System.out.println("\n===== 삭제된 강사 목록 =====");
                 instructors.forEach(instructor -> System.out.println(instructor));
             }
         } catch (SQLException e) {

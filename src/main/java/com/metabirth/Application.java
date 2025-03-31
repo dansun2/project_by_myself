@@ -2,6 +2,7 @@ package com.metabirth;
 
 import com.metabirth.config.JDBCConnection;
 import com.metabirth.view.CourseView;
+import com.metabirth.view.InstructorCourseView;
 import com.metabirth.view.InstructorView;
 
 import java.sql.Connection;
@@ -47,7 +48,8 @@ public class Application {
             System.out.println("1. 학생 관리");
             System.out.println("2. 강사 관리");
             System.out.println("3. 수업 관리");
-            System.out.println("4. 공지사항 관리");
+            System.out.println("4. 강사-수업 관리");
+            System.out.println("5. 공지사항 관리");
             System.out.println("0. 뒤로가기");
             System.out.print("선택: ");
 
@@ -58,6 +60,7 @@ public class Application {
 //                case 1 -> startRoleManagement(connection);
                 case 2 -> startInstructorManagement(connection);
                 case 3 -> startCourseManagement(connection);
+                case 4 -> startInstructorCourseManagement(connection);
                 case 0 -> {
                     connection.close();
                     System.out.println("프로그램을 종료합니다.");
@@ -76,5 +79,10 @@ public class Application {
     private static void startCourseManagement(Connection connection) {
         CourseView courseView = new CourseView(connection);
         courseView.showCourseMenu();
+    }
+
+    private static void startInstructorCourseManagement(Connection connection) {
+        InstructorCourseView instructorCourseView = new InstructorCourseView(connection);
+        instructorCourseView.showInstructorCourseMenu();
     }
 }
