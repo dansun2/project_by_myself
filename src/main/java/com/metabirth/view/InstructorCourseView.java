@@ -19,7 +19,12 @@ public class InstructorCourseView {
 			System.out.println("\n===== 강사-수업 관리 시스템 =====");
 			System.out.println("1. 강사에게 수업 배정");
 			System.out.println("2. 강사가 맡고 있는 수업 조회");
-			System.out.println("3. 강의의 담당 강사 조회");
+			System.out.println("3. 강사가 맡고 있는 수업 배정 취소");
+			System.out.println("4. 강사가 맡고 있는 수업을 다른 강사에게 배정");
+			System.out.println("5. 배정된 수업이 없는 강사 조회");
+			System.out.println("6. 강의에 담당 강사 배정");
+			System.out.println("7. 강의의 담당 강사 조회");
+			System.out.println("8. 배정된 강사가 없는 수업 조회");
 			System.out.println("0. 뒤로가기");
 			System.out.print("선택하세요: ");
 
@@ -27,13 +32,17 @@ public class InstructorCourseView {
 			scanner.nextLine(); // 개행 문자 처리
 
 			switch (choice) {
-				case 1 ->
-				case 2 ->
-				case 3 ->
+				case 1 -> assignCourseToInstructor();
+
 				case 0 -> {
 					return;
 				}
 				default -> System.out.println("잘못된 입력입니다. 다시 선택하세요.");
 			}
+		}
+	}
+
+	public void assignCourseToInstructor() {
+
 	}
 }

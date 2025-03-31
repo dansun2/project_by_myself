@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="apigogo@localhost" uuid="15aa0d24-c0ee-4a7b-bbf5-1c1bd07e0cbd">
+    <data-source source="LOCAL" name="apigogo@localhost" uuid="5a3c012a-62bd-45ac-8c33-e459e42954ae">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

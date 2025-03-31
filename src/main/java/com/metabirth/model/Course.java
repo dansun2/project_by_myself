@@ -106,7 +106,7 @@ public class Course {
             ", 강의 가격=" + coursePrice +
             ", 강의 상태=" + courseStatus +
             ", 강의 등록일=" + courseCreatedAt +
-            ", 강의 수정일=" + courseUpdatedAt +
-            ", 강의 삭제일=" + courseDeletedAt;
+            (courseUpdatedAt != null? ", 강의 수정일=" + courseUpdatedAt : " ") +
+            (courseDeletedAt != null? ", 강의 삭제일=" + courseDeletedAt : " ");
     }
 }
