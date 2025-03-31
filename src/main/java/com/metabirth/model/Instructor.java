@@ -120,7 +120,7 @@ public class Instructor {
                 ", 강사휴대폰번호='" + instructorPhone + '\'' +
                 ", 강사상태=" + instructorStatus +
                 ", 강사정보등록일=" + instructorCreatedAt +
-                ", 강사정보수정일=" + instructorUpdatedAt +
-                ", 강사정보삭제일=" + instructorDeletedAt;
+                (instructorUpdatedAt != null ? ", 강사정보수정일=" + instructorUpdatedAt : " ") +
+                (instructorDeletedAt != null ? ", 강사정보삭제일=" + instructorDeletedAt : " ");
     }
 }

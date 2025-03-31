@@ -7,7 +7,7 @@
           FROM instructors
          WHERE status = true
     </query>
-
+<!--    삭제된 강사(비활성화)-->
     <query id="getAllDeletedInstructors">
         SELECT
         instructor_id, instructor_name, phone, email, status, created_at, updated_at, deleted_at
@@ -55,48 +55,56 @@
     <query id="getAllCourses">
         SELECT
             course_id, course_name, course_time, capacity, price, status, created_at, updated_at, deleted_at
-          FROM course
+          FROM courses
          WHERE status = true
+    </query>
+
+<!--    삭제된 강의(비활성화)-->
+    <query id="getAllDeletedCourses">
+        SELECT
+        courses_id, courses_name, course_time, capacity, price, status, created_at, updated_at, deleted_at
+        FROM courses
+        WHERE status = false
     </query>
 
     <query id="findByCourseId">
         SELECT
         *
-        FROM course
+        FROM courses
         WHERE course_id = ?
     </query>
 
     <query id="addCourse">
-        INSERT INTO course (course_name, course_time, capacity, price, status, created_at)
+        INSERT INTO courses (course_name, course_time, capacity, price, status, created_at)
         VALUES (?, ?, ?, ?, ?, now())
     </query>
 
     <query id="updateCourseName">
-        UPDATE course
+        UPDATE courses
         SET course_name = ?, updated_at = now()
         WHERE course_id = ?
     </query>
 
     <query id="updateCourseTime">
-        UPDATE course
+        UPDATE courses
         SET course_time = ?, updated_at = now()
         WHERE course_id = ?
     </query>
 
     <query id="updateCourseCapacity">
-        UPDATE course
+        UPDATE courses
         SET capacity = ?, updated_at = now()
         WHERE course_id = ?
     </query>
 
     <query id="updateCoursePrice">
-        UPDATE course
+        UPDATE courses
         SET price = ?, updated_at = now()
         WHERE course_id = ?
     </query>
 
     <query id="deleteByCourseId">
-        UPDATE course
+        UPDATE courses
         SET status = ?, deleted_at = now()
         WHERE course_id = ?
     </query>
