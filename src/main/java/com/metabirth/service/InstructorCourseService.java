@@ -19,6 +19,7 @@ public class InstructorCourseService {
 
     // 강의에 강사 배정
     public boolean assignCourseToInstructor(int instructorId, int courseId) throws SQLException {
-        return true;
+        boolean result = instructorCourseDao.assignCourseToInstructor(instructorId, courseId);
+        return result;
     }
 }

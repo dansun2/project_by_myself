@@ -15,7 +15,7 @@ public class InstructorCourseView {
 		this.scanner = new Scanner(System.in);
 	}
 
-	public void showInstructorCourseMenu() {
+	public void showInstructorCourseMenu() throws SQLException {
 		while (true) {
 			System.out.println("\n===== 강사-수업 관리 시스템 =====");
 			System.out.println("1. 강사에게 수업 배정");
@@ -35,6 +35,7 @@ public class InstructorCourseView {
 			switch (choice) {
 				case 1 -> assignCourseToInstructor();
 
+
 				case 0 -> {
 					return;
 				}
@@ -44,7 +45,6 @@ public class InstructorCourseView {
 	}
 
 	public void assignCourseToInstructor() throws SQLException {
-
 		System.out.print("수업을 맡길 강사 ID를 입력하세요 : ");
 		int instructorId = scanner.nextInt();
 		scanner.nextLine();
@@ -55,4 +55,5 @@ public class InstructorCourseView {
 
 		instructorCourseService.assignCourseToInstructor(instructorId, courseId);
 	}
+
 }
