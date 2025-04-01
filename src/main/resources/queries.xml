@@ -28,6 +28,11 @@
         VALUES (?, ?, ?, ?, ?, now())
     </query>
 
+    <query id="assignCourseToInstructor">
+        INSERT INTO instructor_course (instructor_id, course_id)
+        VALUES (?, ?)
+    </query>
+
     <query id="updateInstructorName">
         UPDATE instructors
         SET instructor_name = ?, updated_at = now()

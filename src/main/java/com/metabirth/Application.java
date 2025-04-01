@@ -81,7 +81,7 @@ public class Application {
         courseView.showCourseMenu();
     }
 
-    private static void startInstructorCourseManagement(Connection connection) {
+    private static void startInstructorCourseManagement(Connection connection) throws SQLException {
         InstructorCourseView instructorCourseView = new InstructorCourseView(connection);
         instructorCourseView.showInstructorCourseMenu();
     }
