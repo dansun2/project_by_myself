@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.metabirth.exception.InvalidInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,13 +42,15 @@ public class CourseService {
 		return courseDao.addCourse(course);
 	}
 	
-	public Course findByCourseId(Integer courseId) {
-		if (courseId == null ){
-			System.out.println("강의ID가 입력되지 않았습니다.");
-			return null;
+	public Course findByCourseId(Integer courseId) throws InvalidInputException {
+		if (courseId == null || courseId <= 0) {
+			throw new InvalidInputException("강의ID가 입력되지 않았습니다.");
 		}
 		Course course = courseDao.findByCourseId(courseId);
 
+		// 없을떄는 null 보다는 의미가 명확하게 예외 던지기
+		// null은 어디서부터 null값이 왔는지 체크해야 하고 nullpoint익셉션 발생할수있음
+		//
 		if(course == null) {
 			System.out.println("해당 ID의 강의가 없습니다.");
 			return null;
