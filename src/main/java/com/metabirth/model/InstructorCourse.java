@@ -16,4 +16,11 @@ public class InstructorCourse {
 	public Integer getCourseId() {
 		return courseId;
 	}
+
+
+	@Override
+	public String toString() {
+		return "강사ID= " + instructorId +
+				", 강의ID= " + courseId;
+	}
 }

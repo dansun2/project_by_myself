@@ -18,6 +18,7 @@ public class InstructorDao {
         this.connection = connection;
     }
 
+    // 모든 강사정보 조회(활성화 상태의 강사만)
     public List<Instructor> getAllInstructors() {
         
         List<Instructor> instructors = new ArrayList<>();
@@ -44,6 +45,7 @@ public class InstructorDao {
         return instructors;
     }
 
+    // 삭제된(비활성화) 강사 조회
     public List<Instructor> getAllDeletedInstructors() {
 
         List<Instructor> instructors = new ArrayList<>();
@@ -70,6 +72,7 @@ public class InstructorDao {
         return instructors;
     }
 
+    // 강사ID로 조회
     public Instructor findByInstructorId(int instructorId) {
         Instructor instructor = null; // 조회한 강사의 정보를 담을 객체 생성
         String query = QueryUtil.getQuery("findByInstructorId");
@@ -96,6 +99,7 @@ public class InstructorDao {
         return instructor;
     }
 
+    // 강사 등록
     public boolean registerInstructor(Instructor instructor) {
         String query = QueryUtil.getQuery("registerInstructor");
 
@@ -116,6 +120,7 @@ public class InstructorDao {
         return false;
     }
 
+    // 강사 이메일 수정
     public boolean updateInstructorEmail(int instructorId, String input) {
         String query = QueryUtil.getQuery("updateInstructorEmail");
         System.out.println(query);
@@ -131,6 +136,7 @@ public class InstructorDao {
         }
     }
 
+    // 강사 휴대폰번호 수정
     public boolean updateInstructorPhone(int instructorId, String input) {
         String query = QueryUtil.getQuery("updateInstructorPhone");
         try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -143,6 +149,7 @@ public class InstructorDao {
         }
     }
 
+    // 강사이름 수정
     public boolean updateInstructorName(int instructorId, String input) {
         String query = QueryUtil.getQuery("updateInstructorName");
         try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -155,6 +162,7 @@ public class InstructorDao {
         }
     }
 
+    // 강사 삭제(비활성화)
     public boolean deleteByInstructorId(int instructorId) {
         String query = QueryUtil.getQuery("deleteByInstructorId");
 
