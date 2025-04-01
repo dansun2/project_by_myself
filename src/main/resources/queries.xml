@@ -29,8 +29,43 @@
     </query>
 
     <query id="assignCourseToInstructor">
-        INSERT INTO instructor_course (instructor_id, course_id)
-        VALUES (?, ?)
+        INSERT INTO instructor_course (instructor_id, course_id, status, created_at)
+        VALUES (?, ?, ?, now())
+    </query>
+
+<!--    강사가 맡고 있는 강의 전체 조회-->
+    <query id="getAllCoursesByInstructor">
+        SELECT
+            c.course_id, c.course_name, c.course_time, c.capacity, c.price, c.status, c.created_at, c.updated_at, c.deleted_at
+           FROM instructor_course ic
+          INNER JOIN courses c on ic.course_id = c.course_id
+          INNER JOIN instructors i on i.instructor_id = ic.instructor_id
+         WHERE c.status = true
+    </query>
+
+<!--    강사에게 강의 배정 취소하기(status를 false로 전환)-->
+    <query id="unassignCourseFromInstructor">
+        UPDATE instructor_course
+        SET status = false, deleted_at = now()
+        WHERE course_id = ?
+    </query>
+
+<!--    강사에게 배정된 강의를 다른 강사로 변경-->
+    <query id="reassignCourseToAnotherInstructor">
+        UPDATE instructor_course
+        SET instructor_id = ?, updated_at = now()
+        WHERE course_id = ?
+    </query>
+
+<!--    배정된 수업이 없는 강사를 전체 조회-->
+    <query id="getInstructorsWithoutCourses">
+        SELECT
+            i.instructor_id, i.instructor_name, i.phone, i.email, i.status, i.created_at, i.updated_at, i.deleted_at
+           FROM instructors i
+          WHERE i.instructor_id NOT IN (
+            SELECT instructor_id
+           FROM instructor_course
+          )
     </query>
 
     <query id="updateInstructorName">

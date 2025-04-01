@@ -34,10 +34,18 @@ public class CourseService {
 
 	// 강의 등록부분. 이름이 동일한 강의도 등록이 가능함
 	public boolean addCourse(Course course) throws SQLException {
+		if (course == null) {
+			System.out.println("등록할 강의정보가 입력되지 않았습니다.");
+			return false;
+		}
 		return courseDao.addCourse(course);
 	}
 	
-	public Course findByCourseId(int courseId) {
+	public Course findByCourseId(Integer courseId) {
+		if (courseId == null ){
+			System.out.println("강의ID가 입력되지 않았습니다.");
+			return null;
+		}
 		Course course = courseDao.findByCourseId(courseId);
 
 		if(course == null) {
@@ -47,11 +55,24 @@ public class CourseService {
 		return course;
 	}
 
-	public boolean deleteByCourseId(int courseId) {
+	public boolean deleteByCourseId(Integer courseId) {
+		if (courseId == null ){
+			System.out.println("강의ID가 입력되지 않았습니다.");
+			return false;
+		}
 		return courseDao.deleteByCourseId(courseId); // view에서 입력받은 id 가져와서 일단 조회
 	}
 
-	public Course updateByCourseId(int choice, int courseId, String input) {
+	public Course updateByCourseId(int choice, Integer courseId, String input) {
+		if (courseId == null ){
+			System.out.println("강의ID가 입력되지 않았습니다.");
+			return null;
+		}
+		if (input == null || input.equals("")) {
+			System.out.println("수정할 강의 정보가 입력되지 않았습니다.");
+			return null;
+		}
+
 		// 1번이면 이름 수정, 2번이면 휴대폰수정, 3번이면 이메일수정
 		Course course = null;
 		switch (choice) {

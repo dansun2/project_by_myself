@@ -42,7 +42,11 @@ public class InstructorService {
         return instructors;
     }
 
-    public Instructor findByInstructorId(int instructorId) {
+    public Instructor findByInstructorId(Integer instructorId) {
+        if (instructorId == null) {
+            System.out.println("강사ID가 입력되지 않았습니다.");
+            return null;
+        }
         Instructor instructor = instructorDao.findByInstructorId(instructorId);
 
         if(instructor == null) {
@@ -53,6 +57,10 @@ public class InstructorService {
     }
 
     public boolean registerInstructor(Instructor instructor) throws SQLException {
+        if (instructor == null) {
+            System.out.println("등록할 강사의 정보가 입력되지 않았습니다.");
+            return false;
+        }
         List<Instructor> existingInstructor = getAllInstructors(); // 강사 정보 전체를 가져와서 list에 담음
 
         for (Instructor i : existingInstructor) {
@@ -63,7 +71,15 @@ public class InstructorService {
         return instructorDao.registerInstructor(instructor);
     }
 
-    public Instructor updateByInstructorId(int choice, int instructorId, String input) {
+    public Instructor updateByInstructorId(int choice, Integer instructorId, String input) {
+        if (instructorId == null) {
+            System.out.println("강사ID가 입력되지 않았습니다.");
+            return null;
+        }
+        if (input == null || input.equals("")) {
+            System.out.println("수정할 값이 입력되지 않았습니다.");
+            return null;
+        }
         // 1번이면 이름 수정, 2번이면 휴대폰수정, 3번이면 이메일수정
         Instructor instructor = null;
         switch (choice) {
@@ -116,7 +132,11 @@ public class InstructorService {
         return instructor;
     }
 
-    public boolean deleteByInstructorId(int instructorId) {
+    public boolean deleteByInstructorId(Integer instructorId) {
+        if (instructorId == null) {
+            System.out.println("강사ID가 입력되지 않았습니다.");
+            return false;
+        }
         return instructorDao.deleteByInstructorId(instructorId);
     }
 }

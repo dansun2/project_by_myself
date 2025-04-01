@@ -18,6 +18,7 @@ public class CourseDao {
 		this.connection = connection;
 	}
 
+	// 모든 강의 정보 조회
 	public List<Course> getAllCourses() {
 
 		List<Course> courses = new ArrayList<>();
@@ -45,6 +46,7 @@ public class CourseDao {
 		return courses;
 	}
 
+	// 강의등록
 	public boolean addCourse(Course course) {
 		String query = QueryUtil.getQuery("addCourse");
 
@@ -65,6 +67,7 @@ public class CourseDao {
 		return false;
 	}
 
+	// ID로 강의 조회
 	public Course findByCourseId(int courseId) {
 		Course course = null; // 조회한 강사의 정보를 담을 객체 생성
 		String query = QueryUtil.getQuery("findByCourseId");
@@ -92,6 +95,7 @@ public class CourseDao {
 		return course;
 	}
 
+	// 강의삭제(상태만 false로 변경)
 	public boolean deleteByCourseId(int courseId) {
 		String query = QueryUtil.getQuery("deleteByCourseId");
 
@@ -105,6 +109,7 @@ public class CourseDao {
 		}
 	}
 
+	// 강의명 변경
 	public boolean updateCourseName(int courseId, String input) {
 		String query = QueryUtil.getQuery("updateCourseName");
 		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -117,6 +122,7 @@ public class CourseDao {
 		}
 	}
 
+	// 강의시간 변경
 	public boolean updateCourseTime(int courseId, String input) {
 		String query = QueryUtil.getQuery("updateCourseTime");
 		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -129,6 +135,7 @@ public class CourseDao {
 		}
 	}
 
+	// 강의 수용인원 변경
 	public boolean updateCourseCapacity(int courseId, String input) {
 		String query = QueryUtil.getQuery("updateCourseCapacity");
 		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -141,6 +148,7 @@ public class CourseDao {
 		}
 	}
 
+	// 강의가격 변경
 	public boolean updateCoursePrice(int courseId, String input) {
 		String query = QueryUtil.getQuery("updateCoursePrice");
 		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
