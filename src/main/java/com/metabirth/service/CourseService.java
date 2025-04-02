@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.metabirth.exception.DataAccessException;
+import com.metabirth.exception.DataNotFoundException;
 import com.metabirth.exception.InvalidInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,52 +23,63 @@ public class CourseService {
 		this.connection = connection;
 	}
 
-	public List<Course> getAllCourses() throws SQLException {
-
-		List<Course> courses = courseDao.getAllCourses();
-
-		if(courses == null) {
-			log.error("조회한 강의 정보가 없거나 DB와 연결하는 과정에서 오류가 발생했습니다.");
-			return null;
+	// 강의 전체 조회
+	public List<Course> getAllCourses() throws DataAccessException {
+		try {
+			List<Course> courses = courseDao.getAllCourses();
+			if (courses == null) {
+				return null;
+			}
+			return courses;
+		} catch (SQLException e) { // DAO 에서 문제가 생겼을 때
+			log.error(e.getMessage());
+			throw new DataAccessException("DB와의 연결 과정에서 오류가 발생");
 		}
-
-		return courses;
 	}
 
 	// 강의 등록부분. 이름이 동일한 강의도 등록이 가능함
-	public boolean addCourse(Course course) throws SQLException {
-		if (course == null) {
-			System.out.println("등록할 강의정보가 입력되지 않았습니다.");
-			return false;
+	public boolean addCourse(Course course) throws DataAccessException {
+		try {
+			if (course == null) {
+				throw new InvalidInputException("등록할 강의정보가 존재하지 않음");
+			}
+			return courseDao.addCourse(course);
+		} catch (SQLException e) {
+			log.error(e.getMessage(), e);
+			throw new DataAccessException("DB와의 연결 과정에서 오류가 발생");
 		}
-		return courseDao.addCourse(course);
 	}
-	
-	public Course findByCourseId(Integer courseId) throws InvalidInputException {
+
+	public Course findByCourseId(Integer courseId) throws DataAccessException {
 		if (courseId == null || courseId <= 0) {
 			throw new InvalidInputException("강의ID가 입력되지 않았습니다.");
 		}
-		Course course = courseDao.findByCourseId(courseId);
-
-		// 없을떄는 null 보다는 의미가 명확하게 예외 던지기
-		// null은 어디서부터 null값이 왔는지 체크해야 하고 nullpoint익셉션 발생할수있음
-		//
-		if(course == null) {
-			System.out.println("해당 ID의 강의가 없습니다.");
-			return null;
+		try {
+			Course course = courseDao.findByCourseId(courseId);
+			if(course == null) {
+				return null;
+			}
+			return course;
+		} catch (SQLException e) {
+			log.error(e.getMessage(), e);
+			throw new DataAccessException("DB와의 연결 과정에서 오류가 발생");
 		}
-		return course;
 	}
 
-	public boolean deleteByCourseId(Integer courseId) {
+	public boolean deleteByCourseId(Integer courseId) throws DataAccessException {
 		if (courseId == null ){
 			System.out.println("강의ID가 입력되지 않았습니다.");
 			return false;
 		}
-		return courseDao.deleteByCourseId(courseId); // view에서 입력받은 id 가져와서 일단 조회
+		try {
+            return courseDao.deleteByCourseId(courseId);
+		} catch (SQLException e) {
+			log.error(e.getMessage(), e);
+			throw new DataAccessException("DB와의 연결 과정에서 오류가 발생");
+		}
 	}
 
-	public Course updateByCourseId(int choice, Integer courseId, String input) {
+	public Course updateByCourseId(int choice, Integer courseId, String input) throws DataAccessException{
 		if (courseId == null ){
 			System.out.println("강의ID가 입력되지 않았습니다.");
 			return null;
@@ -78,43 +91,44 @@ public class CourseService {
 
 		// 1번이면 이름 수정, 2번이면 휴대폰수정, 3번이면 이메일수정
 		Course course = null;
-		switch (choice) {
-			case 1 -> { // 강의명 수정 (중복처리 필요 x)
-				boolean result = courseDao.updateCourseName(courseId, input);
-				if (result) {
-					System.out.println("수정이 완료되었습니다.");
-					course = courseDao.findByCourseId(courseId);
-					return course;
+		try {
+			switch (choice) {
+				case 1 -> { // 강의명 수정 (중복처리 필요 x)
+					boolean result = courseDao.updateCourseName(courseId, input);
+					if (result) {
+						System.out.println("수정이 완료되었습니다.");
+						course = courseDao.findByCourseId(courseId);
+						return course;
+					}
+				}
+				case 2 -> { // 강의시간 수정
+					boolean result = courseDao.updateCourseTime(courseId, input);
+					if (result) {
+						System.out.println("수정이 완료되었습니다.");
+						course = courseDao.findByCourseId(courseId);
+						return course;
+					}
+				}
+				case 3 -> {// 수용인원 수정
+					boolean result = courseDao.updateCourseCapacity(courseId, input);
+					if (result) {
+						System.out.println("수정이 완료되었습니다.");
+						course = courseDao.findByCourseId(courseId);
+						return course;
+					}
+				}
+				case 4 -> { // 강의가격 수정
+					boolean result = courseDao.updateCoursePrice(courseId, input);
+					if (result) {
+						System.out.println("수정이 완료되었습니다.");
+						course = courseDao.findByCourseId(courseId);
+						return course;
+					}
 				}
 			}
-			case 2 -> { // 강의시간 수정
-				boolean result = courseDao.updateCourseTime(courseId, input);
-				if (result) {
-					System.out.println("수정이 완료되었습니다.");
-					course = courseDao.findByCourseId(courseId);
-					return course;
-				}
-			}
-			case 3 -> {// 수용인원 수정
-				boolean result = courseDao.updateCourseCapacity(courseId, input);
-				if (result) {
-					System.out.println("수정이 완료되었습니다.");
-					course = courseDao.findByCourseId(courseId);
-					return course;
-				}
-			}
-			case 4 -> { // 강의가격 수정
-				boolean result = courseDao.updateCoursePrice(courseId, input);
-				if (result) {
-					System.out.println("수정이 완료되었습니다.");
-					course = courseDao.findByCourseId(courseId);
-					return course;
-				}
-			}
-		}
-		if(course == null) {
-			System.out.println("해당 ID의 강사가 없습니다.");
-			return null;
+		} catch (SQLException e) {
+			log.error(e.getMessage(), e);
+			throw new DataAccessException("DB와의 연결 과정에서 오류가 발생");
 		}
 		return course;
 	}
