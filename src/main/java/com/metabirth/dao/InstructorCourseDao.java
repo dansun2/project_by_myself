@@ -27,10 +27,7 @@ public class InstructorCourseDao {
 
             int rows = ps.executeUpdate();
             return rows > 0; // db에 등록이 되었으면 true
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return false;
     }
 
     // 강사가 맡고 있는 강의 전체 조회
@@ -38,8 +35,9 @@ public class InstructorCourseDao {
         List<Course> courses = new ArrayList<>();
         String query = QueryUtil.getQuery("getAllCoursesByInstructor");
 
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, instructorId);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 courses.add(new Course(
@@ -54,10 +52,8 @@ public class InstructorCourseDao {
                         rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
                 ));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return courses;
         }
-        return courses;
     }
 
     // 강사에게 배정했던 강의 취소(담당강사가 없는 상태)
@@ -67,8 +63,6 @@ public class InstructorCourseDao {
             ps.setInt(1,courseId);
             int row = ps.executeUpdate();
             return row > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -80,8 +74,6 @@ public class InstructorCourseDao {
             ps.setInt(2, courseId);
             int row = ps.executeUpdate();
             return row > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -90,8 +82,8 @@ public class InstructorCourseDao {
         String query = QueryUtil.getQuery("getInstructorsWithoutCourses");
         List<Instructor> instructors = new ArrayList<>();
 
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 instructors.add(new Instructor(
@@ -105,9 +97,7 @@ public class InstructorCourseDao {
                         rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
                 ));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return instructors;
         }
-        return instructors;
     }
 }
