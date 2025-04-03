@@ -62,9 +62,10 @@
         SELECT
             i.instructor_id, i.instructor_name, i.phone, i.email, i.status, i.created_at, i.updated_at, i.deleted_at
            FROM instructors i
-          WHERE i.instructor_id NOT IN (
-            SELECT instructor_id
-           FROM instructor_course
+          WHERE NOT EXISTS (
+            SELECT 1
+            FROM instructor_course ic
+            WHERE ic.instructor_id = i.instructor_id
           )
     </query>
 
