@@ -18,13 +18,15 @@ public class CourseDao {
 		this.connection = connection;
 	}
 
-	public List<Course> getAllCourses() {
+	// 모든 강의 정보 조회
+	public List<Course> getAllCourses() throws SQLException { // 예외를 나를 호출하는 service로 던짐
 
 		List<Course> courses = new ArrayList<>();
 		String query = QueryUtil.getQuery("getAllCourses"); // XML에서 쿼리 로드
 
-		try (Statement stmt = connection.createStatement();
-			 ResultSet rs = stmt.executeQuery(query)) {
+		// 여기에서의 try는 try-catch가 아니고 PreparedStatement나 ResultSet 이 자원을 자동으로 닫아주기 위함
+		try (PreparedStatement ps = connection.prepareStatement(query);
+			 ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
 				courses.add(new Course(
@@ -39,13 +41,12 @@ public class CourseDao {
 					rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
 				));
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return courses;
 		}
-		return courses;
 	}
 
-	public boolean addCourse(Course course) {
+	// 강의등록
+	public boolean addCourse(Course course) throws SQLException {
 		String query = QueryUtil.getQuery("addCourse");
 
 		// Statement.RETURN_GENERATED_KEYS는 데이터가 생성된 후 자동생성된 PK값을 가져오는 옵션.
@@ -59,13 +60,11 @@ public class CourseDao {
 
 			int rows = ps.executeUpdate(); // executeUpdate는 결과로 나온 행의 수를 반환
 			return rows > 0; // db에 등록이 되었으면 true
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
-		return false;
 	}
 
-	public Course findByCourseId(int courseId) {
+	// ID로 강의 조회
+	public Course findByCourseId(int courseId) throws SQLException {
 		Course course = null; // 조회한 강사의 정보를 담을 객체 생성
 		String query = QueryUtil.getQuery("findByCourseId");
 
@@ -86,13 +85,12 @@ public class CourseDao {
 					rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
 				);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return course;
 		}
-		return course;
 	}
 
-	public boolean deleteByCourseId(int courseId) {
+	// 강의삭제(상태만 false로 변경)
+	public boolean deleteByCourseId(int courseId) throws SQLException {
 		String query = QueryUtil.getQuery("deleteByCourseId");
 
 		try(PreparedStatement deletePs = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -100,56 +98,50 @@ public class CourseDao {
 			deletePs.setInt(2, courseId);
 			int rows = deletePs.executeUpdate();
 			return rows > 0;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		}
 	}
 
-	public boolean updateCourseName(int courseId, String input) {
+	// 강의명 변경
+	public boolean updateCourseName(int courseId, String input) throws SQLException {
 		String query = QueryUtil.getQuery("updateCourseName");
 		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, input);
 			ps.setInt(2,courseId);
 			int row = ps.executeUpdate();
 			return row > 0;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		}
 	}
 
-	public boolean updateCourseTime(int courseId, String input) {
+	// 강의시간 변경
+	public boolean updateCourseTime(int courseId, String input) throws SQLException {
 		String query = QueryUtil.getQuery("updateCourseTime");
 		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, input);
 			ps.setInt(2,courseId);
 			int row = ps.executeUpdate();
 			return row > 0;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		}
 	}
 
-	public boolean updateCourseCapacity(int courseId, String input) {
+	// 강의 수용인원 변경
+	public boolean updateCourseCapacity(int courseId, String input) throws SQLException {
 		String query = QueryUtil.getQuery("updateCourseCapacity");
 		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setInt(1, Integer.parseInt(input));
 			ps.setInt(2,courseId);
 			int row = ps.executeUpdate();
 			return row > 0;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		}
 	}
 
-	public boolean updateCoursePrice(int courseId, String input) {
+	// 강의가격 변경
+	public boolean updateCoursePrice(int courseId, String input) throws SQLException {
 		String query = QueryUtil.getQuery("updateCoursePrice");
 		try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setDouble(1, Double.parseDouble(input));
 			ps.setInt(2,courseId);
 			int row = ps.executeUpdate();
 			return row > 0;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		} 
 	}
 }

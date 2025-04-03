@@ -18,13 +18,14 @@ public class InstructorDao {
         this.connection = connection;
     }
 
-    public List<Instructor> getAllInstructors() {
+    // 모든 강사정보 조회(활성화 상태의 강사만)
+    public List<Instructor> getAllInstructors() throws SQLException {
         
         List<Instructor> instructors = new ArrayList<>();
         String query = QueryUtil.getQuery("getAllInstructors"); // XML에서 쿼리 로드
 
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 instructors.add(new Instructor(
@@ -38,13 +39,12 @@ public class InstructorDao {
                         rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
                 ));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return instructors;
         }
-        return instructors;
     }
 
-    public List<Instructor> getAllDeletedInstructors() {
+    // 삭제된(비활성화) 강사 조회
+    public List<Instructor> getAllDeletedInstructors() throws SQLException {
 
         List<Instructor> instructors = new ArrayList<>();
         String query = QueryUtil.getQuery("getAllDeletedInstructors"); // XML에서 쿼리 로드
@@ -64,13 +64,12 @@ public class InstructorDao {
                     rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
                 ));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return instructors;
         }
-        return instructors;
     }
 
-    public Instructor findByInstructorId(int instructorId) {
+    // 강사ID로 조회
+    public Instructor findByInstructorId(int instructorId) throws SQLException {
         Instructor instructor = null; // 조회한 강사의 정보를 담을 객체 생성
         String query = QueryUtil.getQuery("findByInstructorId");
 
@@ -90,13 +89,12 @@ public class InstructorDao {
                         rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
                 );
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return instructor;
         }
-        return instructor;
     }
 
-    public boolean registerInstructor(Instructor instructor) {
+    // 강사 등록
+    public boolean registerInstructor(Instructor instructor) throws SQLException {
         String query = QueryUtil.getQuery("registerInstructor");
 
         // Statement.RETURN_GENERATED_KEYS는 데이터가 생성된 후 자동생성된 PK값을 가져오는 옵션.
@@ -110,13 +108,11 @@ public class InstructorDao {
 
             int rows = ps.executeUpdate(); // executeUpdate는 결과로 나온 행의 수를 반환
             return rows > 0; // db에 등록이 되었으면 true
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return false;
     }
 
-    public boolean updateInstructorEmail(int instructorId, String input) {
+    // 강사 이메일 수정
+    public boolean updateInstructorEmail(int instructorId, String input) throws SQLException {
         String query = QueryUtil.getQuery("updateInstructorEmail");
         System.out.println(query);
         System.out.println(input);
@@ -126,36 +122,33 @@ public class InstructorDao {
             ps.setInt(2,instructorId);
             int row = ps.executeUpdate();
             return row > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    public boolean updateInstructorPhone(int instructorId, String input) {
+    // 강사 휴대폰번호 수정
+    public boolean updateInstructorPhone(int instructorId, String input) throws SQLException {
         String query = QueryUtil.getQuery("updateInstructorPhone");
         try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, input);
             ps.setInt(2,instructorId);
             int row = ps.executeUpdate();
             return row > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    public boolean updateInstructorName(int instructorId, String input) {
+    // 강사이름 수정
+    public boolean updateInstructorName(int instructorId, String input) throws SQLException {
         String query = QueryUtil.getQuery("updateInstructorName");
         try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, input);
             ps.setInt(2,instructorId);
             int row = ps.executeUpdate();
             return row > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    public boolean deleteByInstructorId(int instructorId) {
+    // 강사 삭제(비활성화)
+    public boolean deleteByInstructorId(int instructorId) throws SQLException {
         String query = QueryUtil.getQuery("deleteByInstructorId");
 
         try(PreparedStatement deletePs = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -163,8 +156,6 @@ public class InstructorDao {
             deletePs.setInt(2, instructorId);
             int rows = deletePs.executeUpdate();
             return rows > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 }
