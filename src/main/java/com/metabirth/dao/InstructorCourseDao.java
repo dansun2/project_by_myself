@@ -15,18 +15,27 @@ public class InstructorCourseDao {
         this.connection = connection;
     }
 
-    // 강사에게 강의 배정
-    public boolean assignCourseToInstructor(int instructorId, int courseId) throws SQLException {
-        String query = QueryUtil.getQuery("assignCourseToInstructor");
+    // 배정된 수업이 없는 강사 조회
+    public List<Instructor> getInstructorsWithoutCourses() throws SQLException {
+        String query = QueryUtil.getQuery("getInstructorsWithoutCourses");
+        List<Instructor> instructors = new ArrayList<>();
 
-        // 링크테이블에 각각의 id를 넣어줌
         try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, instructorId);
-            ps.setInt(2, courseId);
-            ps.setBoolean(3, true); // 수업을 배정할 때 기본 상태는 true
+            ResultSet rs = ps.executeQuery();
 
-            int rows = ps.executeUpdate();
-            return rows > 0; // db에 등록이 되었으면 true
+            while (rs.next()) {
+                instructors.add(new Instructor(
+                        rs.getInt("instructor_id"),
+                        rs.getString("instructor_name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getBoolean("status"),
+                        rs.getTimestamp("created_at").toLocalDateTime(),
+                        rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
+                        rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
+                ));
+            }
+            return instructors;
         }
     }
 
@@ -56,13 +65,18 @@ public class InstructorCourseDao {
         }
     }
 
-    // 강사에게 배정했던 강의 취소(담당강사가 없는 상태)
-    public boolean unassignCourseFromInstructor(int courseId) throws SQLException {
-        String query = QueryUtil.getQuery("unassignCourseFromInstructor");
-        try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1,courseId);
-            int row = ps.executeUpdate();
-            return row > 0;
+    // 강사에게 강의 배정
+    public boolean assignCourseToInstructor(int instructorId, int courseId) throws SQLException {
+        String query = QueryUtil.getQuery("assignCourseToInstructor");
+
+        // 링크테이블에 각각의 id를 넣어줌
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, instructorId);
+            ps.setInt(2, courseId);
+            ps.setBoolean(3, true); // 수업을 배정할 때 기본 상태는 true
+
+            int rows = ps.executeUpdate();
+            return rows > 0; // db에 등록이 되었으면 true
         }
     }
 
@@ -77,27 +91,13 @@ public class InstructorCourseDao {
         }
     }
 
-    // 배정된 수업이 없는 강사 조회
-    public List<Instructor> getInstructorsWithoutCourses() throws SQLException {
-        String query = QueryUtil.getQuery("getInstructorsWithoutCourses");
-        List<Instructor> instructors = new ArrayList<>();
-
-        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                instructors.add(new Instructor(
-                        rs.getInt("instructor_id"),
-                        rs.getString("instructor_name"),
-                        rs.getString("email"),
-                        rs.getString("phone"),
-                        rs.getBoolean("status"),
-                        rs.getTimestamp("created_at").toLocalDateTime(),
-                        rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
-                        rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null
-                ));
-            }
-            return instructors;
+    // 강사에게 배정했던 강의 취소(담당강사가 없는 상태)
+    public boolean unassignCourseFromInstructor(int courseId) throws SQLException {
+        String query = QueryUtil.getQuery("unassignCourseFromInstructor");
+        try(PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1,courseId);
+            int row = ps.executeUpdate();
+            return row > 0;
         }
     }
 }

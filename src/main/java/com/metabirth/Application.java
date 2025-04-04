@@ -27,8 +27,8 @@ public class Application {
             scanner.nextLine(); // 개행 문자 처리
 
             switch (choice) {
-//                case 1 -> startRoleManagement(connection);
-//                case 2 -> startLessonManagement(connection);
+//                case 1 -> startStudent(connection);
+//                case 2 -> startInstructor(connection);
                 case 3 -> startAdminManagement(connection);
                 case 0 -> {
                     connection.close();
@@ -57,7 +57,7 @@ public class Application {
             scanner.nextLine(); // 개행 문자 처리
 
             switch (choice) {
-//                case 1 -> startRoleManagement(connection);
+//                case 1 -> startStudentManagement(connection);
                 case 2 -> startInstructorManagement(connection);
                 case 3 -> startCourseManagement(connection);
                 case 4 -> startInstructorCourseManagement(connection);
