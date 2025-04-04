@@ -136,7 +136,7 @@
            FROM instructor_course ic
           INNER JOIN courses c on ic.course_id = c.course_id
           INNER JOIN instructors i on i.instructor_id = ic.instructor_id
-         WHERE ic.instructor_id = ?
+         WHERE ic.instructor_id = ? AND c.status = true
     </query>
 
     <!--    강사에게 배정된 강의를 다른 강사로 변경(수정) -->
