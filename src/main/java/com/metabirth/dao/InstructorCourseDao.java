@@ -10,6 +10,8 @@ import java.util.List;
 
 public class InstructorCourseDao {
     private final Connection connection;
+    private PreparedStatement pstmt;
+    private String query;
 
     public InstructorCourseDao(Connection connection) {
         this.connection = connection;

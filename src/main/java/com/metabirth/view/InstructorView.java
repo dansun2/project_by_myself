@@ -186,6 +186,8 @@ public class InstructorView {
             }
         } catch (DataAccessException e) {
             System.out.println("강사를 등록하는중 중 오류가 발생했습니다.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("이미 존재하는 이메일입니다. 다시 시도해주세요.");
         }
     }
     
